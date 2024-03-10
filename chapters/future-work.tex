@@ -1,0 +1,34 @@
+\section{Accounting for Light Loss Due to Reflection}
+ok let's make some assumptions, the OHP sheet they use to block off light, tell me more about it, is it transparent or not? how far away do they usually put it? it's fine to make assumptions because it's not in the paper, probably it's obvious. using that we woudl also assume waht it is made of, and taht would allow for us to calculate the intensity of the light after being blocked by the sheet, using that, we would mark that as phi passive. then i have what's phi active and what's phi passive. using that, I would assume a reasonable function like sigmoid because of some argument and then map, for the actual mapping, I would need to know where the sigmoid starts and ends based on more assumptions, like, the thing can't get more active (it's dark and stuf), but can get infinitely passive. if we put the sun 13cm away, then the waves would melt instantly upon going out of the activator, so we need to assume some realtionship
+
+
+oh, so they use the sheet to smooth out the light, if that's the case then the light would be the same everywhere. how can we use osme physics and assumptions to calculate how that sheet impacts the light intensity directly after it.
+i can see they also put non-transparent material to block off the light after this OHP sheet. the material is opaque and they didn't specify how bright the room is, they also mention that they use a porjector and flash it to see what's happening, which means probably the room is dark
+
+
+To model the impact of an Overhead Projector (OHP) sheet on light intensity, we consider two main effects: absorption within the material and transmission due to the angle of incidence. We employ the Beer-Lambert Law for absorption and a simplified version of the Fresnel equations for transmission.
+
+\subsection*{Fresnel Equations for Transmission}
+The Fresnel equations describe the reflection and transmission of light when it hits an interface between two different media. For s-polarized light (electric field perpendicular to the plane of incidence) and p-polarized light (electric field parallel to the plane of incidence), the transmission coefficients can be calculated as follows:
+
+For s-polarized light:
+\[ T_s = 1 - \left( \frac{n_1 \cos(\theta_i) - n_2 \sqrt{1 - \left(\frac{n_1}{n_2} \sin(\theta_i)\right)^2}}{n_1 \cos(\theta_i) + n_2 \sqrt{1 - \left(\frac{n_1}{n_2} \sin(\theta_i)\right)^2}} \right)^2 \]
+
+For p-polarized light:
+\[ T_p = 1 - \left( \frac{n_2 \cos(\theta_i) - n_1 \sqrt{1 - \left(\frac{n_1}{n_2} \sin(\theta_i)\right)^2}}{n_2 \cos(\theta_i) + n_1 \sqrt{1 - \left(\frac{n_1}{n_2} \sin(\theta_i)\right)^2}} \right)^2 \]
+
+where:
+\begin{itemize}
+    \item \( T_s \) and \( T_p \) are the transmission coefficients for s-polarized and p-polarized light, respectively.
+    \item \( n_1 \) is the refractive index of the first medium (air, typically close to 1).
+    \item \( n_2 \) is the refractive index of the second medium (OHP sheet material).
+    \item \( \theta_i \) is the angle of incidence.
+\end{itemize}
+
+The average transmission \( T \) for unpolarized light can be approximated as the average of \( T_s \) and \( T_p \):
+\[ T = \frac{T_s + T_p}{2} \]
+
+\subsection*{Example Calculation at 45 Degrees Angle of Incidence}
+At an angle of incidence of 45 degrees, and assuming the refractive index for air as 1.0 and the OHP sheet material as 1.5, we calculate \( T_s \), \( T_p \), and the average transmission \( T \). The transmission coefficients reflect how much of the incident light is transmitted through the OHP sheet at this angle.
+
+Using these Fresnel equations, we account for the angle-dependent transmission of light through the OHP sheet, complementing the Beer-Lambert Law used to calculate the light intensity after absorption by the material.

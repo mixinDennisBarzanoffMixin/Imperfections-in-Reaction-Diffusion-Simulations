@@ -1,0 +1,10 @@
+\chapter{Methodologies}
+The project experimented with Flutter for the initial simulation due to the benefits of pixel-level control and fast prototyping (see Figure \ref{fig:first-waves} for a preview of the first successful waves). However, the rendering was too slow for large chemical circuits, so the GPU was needed, for which, as of March 2024 Flutter still has no official support. A custom version of the newest engine was tested to expose experimental GPU APIs as detailed in \href{flutter.dev/go/impeller-dart}{flutter.dev/go/impeller-dart}.
+That did not work, so the Metal library was used to compute the simulation on the GPU. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{metal-pipeline.png}
+    \caption{The Metal Dependency Pipeline consists of a Compute Command Encoder (represented by red circles) and a Render Command Encoder (depicted by yellow circles). The Compute Command Encoder is run multiple times, performing as many calculations as possible. Simultaneously, the Render Command Encoder operates periodically to render the computed results. These two encoders work in parallel, with the Render Command Encoder producing output every time it gets a chance, while the Compute Command Encoder continuously performs computations most of the time.}
+    \label{fig:metal-dependency-pipline}
+\end{figure}
+

@@ -1,0 +1,114 @@
+\documentclass{LULCSProject}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{todonotes}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tcolorbox}
+
+
+\lstset{language=Java,
+	basicstyle=\small,
+	identifierstyle=\emph}
+
+\newcommand{\tvect}[3] { \ensuremath{\Bigl(\negthinspace\begin{smallmatrix}#1\\#2\\#3\end{smallmatrix}\Bigr)}}
+\newcommand{\twovect}[2] { \ensuremath{\left(\negthinspace\begin{smallmatrix}#1\\#2\end{smallmatrix}\right)}}
+
+
+\title{Imperfections in Reaction Diffusion Simulations}
+\author{Dennis Barzanoff}
+\date{\today}
+%\BSc % \MEng \BEng etc. 
+\supervisor{James Stovold}
+
+\wordcount{8542} % number of words in your report 
+
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+
+\abstract{The project aims to explore how changes in light imperfections impact the realism of a BZ simulation as it's scaled in size. The code is in Metal/GPU and runs experiments varying different simulation parameters that correspond to real-world changes, and then measures results. Changes in light were found to significantly impact the correct behaviour of BZ computer simulations and more advanced light management tools such as LED panels are required to scale large BZ circuits.}
+
+
+\declaration{
+\\[.5em]
+I certify that the material contained in this dissertation is my own work and does not contain unreferenced or unacknowledged material. I also warrant that the above statement applies to the
+implementation of the project and all associated documentation. Regarding the electronically
+submitted work, I consent to this being stored electronically and copied for assessment purposes,
+including the School's use of plagiarism detection systems in order to check the integrity of
+assessed work.\\
+I agree to my dissertation being placed in the public domain, with my name explicitly included
+as the author of the work.\\
+Name: Dennis Barzanoff\\
+Date: \today
+}
+
+% \dedication{
+%   If you want to dedicate to someone in particular
+% }
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{Roman}
+
+%\tableofcontents
+
+\listoffigures
+\newpage
+% \begingroup
+% \let\clearpage\relax
+\listoftables
+%\endgroup
+
+\newpage
+\pagenumbering{arabic}
+
+%%
+%% include your chapters here
+%%
+\include{chapters/introduction}
+\include{chapters/methodologies}
+
+\include{chapters/background-lit-review}
+\include{chapters/results}
+\include{chapters/conclusion-eval}
+
+% Always start your chapter on a new page!
+
+
+%%
+%% You bib file
+%%
+\newpage
+\bibliography{report}
+
+\newpage
+\appendix
+%%
+%% Your appendices
+%%
+\include{chapters/appendix-unsuccessful-attempts}
+\newpage
+\include{chapters/appendix1}
+\newpage
+\include{chapters/appendix2}
+
+\end{document}
