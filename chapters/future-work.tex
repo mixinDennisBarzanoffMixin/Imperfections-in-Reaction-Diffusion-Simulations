@@ -32,3 +32,39 @@ The average transmission \( T \) for unpolarized light can be approximated as th
 At an angle of incidence of 45 degrees, and assuming the refractive index for air as 1.0 and the OHP sheet material as 1.5, we calculate \( T_s \), \( T_p \), and the average transmission \( T \). The transmission coefficients reflect how much of the incident light is transmitted through the OHP sheet at this angle.
 
 Using these Fresnel equations, we account for the angle-dependent transmission of light through the OHP sheet, complementing the Beer-Lambert Law used to calculate the light intensity after absorption by the material.
+
+
+\section{Beer-Lambert Law for Absorption}
+\todo{Move to future work, looking at phi act and phi pass are related, atm we are varying passive, but activve would change as well, atm we are making the assumption no light is going through ,but could calculate their relationship using some fomrula for absorbtion like this }
+The Beer-Lambert Law describes how the intensity of light decreases as it passes through an absorbing medium:
+\[ I = I_0 \cdot e^{-\alpha \cdot l} \]
+where:
+\begin{itemize}
+    \item \(I_0\) is the initial light intensity before hitting the OHP sheet.
+    \item \(I\) is the light intensity after passing through the material.
+    \item \(\alpha\) is the absorption coefficient of the OHP sheet material.
+    \item \(l\) is the thickness of the OHP sheet.
+\end{itemize}
+
+For our calculations, we assume an absorption coefficient \(\alpha = 1\ \text{m}^{-1}\) and a thickness \(l = 0.004\) meters (4 mm).
+
+\subsection*{Fresnel Equations for Transmission}
+The Fresnel equations determine how much light is transmitted and reflected at an interface, depending on the angle of incidence. For non-polarized light and considering both s-polarized and p-polarized components, the average transmission \(T\) can be approximated by:
+\[ T = \frac{T_s + T_p}{2} \]
+where \(T_s\) and \(T_p\) are the transmission coefficients for s-polarized and p-polarized light, respectively. These coefficients are calculated using the refractive indices of the air (\(n_1\)) and the OHP sheet material (\(n_2\)), and the angle of incidence \(\theta_i\).
+
+\subsection*{Calculation at 45 Degrees Angle of Incidence}
+At a 45-degree angle of incidence, we calculated the transmission coefficients for s-polarized and p-polarized light, and found the average transmission \(T\) to be approximately 0.950. This indicates that about 95\% of the light is transmitted through the OHP sheet at this angle.
+
+Combining the effects of absorption and transmission, the final intensity \(I_{\text{final}}\) of light after passing through the OHP sheet and considering the angle of incidence is given by:
+\[ I_{\text{final}} = I_0 \cdot e^{-\alpha \cdot l} \cdot T \]
+
+Substituting the given values and assumptions, we find:
+\[ I_{\text{final}} \approx 0.946 \]
+This result indicates that the combined effect of slight absorption by the OHP sheet and the reduction in transmission due to the 45-degree angle of incidence leads to a final light intensity of approximately 94.6\% of the initial intensity.
+
+These calculations demonstrate the importance of considering both material properties and geometric factors, such as the angle of incidence, when modelling the transmission of light through materials in experimental setups.
+
+
+
+\todo{the diffusion assumes 100\% goes through at the centre of the  light source, it's more like 99\% or something}
