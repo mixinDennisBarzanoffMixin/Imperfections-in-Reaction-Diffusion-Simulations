@@ -340,10 +340,20 @@ The real-world distribution of light as we get further away from the center of t
 
 
 
+\begin{tcolorbox}[colback=red!5!white,colframe=blue!75!black,title=Assumptions for mapping light intensity to radial distance]
+    In our analysis, rather than directly calculating the rate of change of distance with respect to illumination intensity (\(\frac{dl}{d\phi}\)), we employ an interpolation strategy to estimate the illumination percentage between \(\phi_{\text{active}}\) and \(\phi_{\text{passive}}\). This approach is particularly advantageous because it allows us to model the transition of the chemical diode's state from passive to active (and vice versa) without necessitating a precise mathematical mapping of the inverse square law in this context. 
+
+    Interpolation is mathematically straightforward and significantly practical for our purposes. By defining \(\phi_{\text{active}} = 0\,\text{lux}\), representing the absence of light, and \(\phi_{\text{passive}} = 24,000\,\text{lux}\), as the maximum light intensity for the diode to remain passive, we create a linear scale between these two points. Thus, any given illumination intensity, \(\phi\), can be represented as a percentage along this scale:
+    
+    \[
+    \text{Illumination Percentage} = \frac{\phi - \phi_{\text{active}}}{\phi_{\text{passive}} - \phi_{\text{active}}} \times 100.
+    \]
+    
+    This formula effectively captures the transition of illumination across the operational range without delving into the complexities of the inverse square law and its derivatives. It succinctly demonstrates how illumination affects the diode's state by positioning any intermediate intensity level within a comprehensible operational range. Such an approach not only simplifies the mathematical analysis but also enhances our intuitive understanding of the system's behavior under varying light conditions.
+\end{tcolorbox}
 \begin{tcolorbox}[colback=red!5!white,colframe=blue!75!black,title=Assumptions for Light Intensity Calculation]
     There are assumptions to make when calculating the movable area of the Petri dish in centimeters.
 \begin{itemize}
-    \item The mapping of $\frac{dl}{d\phi}$ is nonlinear, but is derived from the simple Inverse Square Law and moves between $\phi_{\text{active}}=0\text{lux}$ and $\phi_{\text{passive}}=24,000\text{lux}$.
     \item The area of the Petri dish for a chemical diode is the same as the one for the coincidence detector = 10mm
     \item The limits ($\phi_{\text{min}}$ and $\phi_{\text{max}}$) are the same for both the coincidence detector and the chemical diode, in reality the coincidence detector has tighter constraints because it's made of diodes and a detector.
     \item We assume the light bulb is not using soft light, i.e. it has no piece of paper, so the inverse square law accurately describes the light intensity at different distances from the light source. 
