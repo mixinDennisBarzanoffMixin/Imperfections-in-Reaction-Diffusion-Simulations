@@ -190,7 +190,7 @@
 \renewcommand*{\maketitle}{%
   \old@maketitle%
   \clearpage{}%
-  \pagestyle{empty}%
+  \thispagestyle{empty}%
   \ifx\LULCSP@declaration\undefined%
     \ClassError{LULCSProject}%
     {declaration not set}
