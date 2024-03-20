@@ -5,7 +5,7 @@ which are necessary for computing anything.
 
 The main objectives of the experiments are to find out the bounds and limitations of different chemical components in order to determine the feasibility of using them in a real-world environment.
 
-\section{Mapping the Simulation Size to Real Life}
+\section{Mapping the Simulation Size to Real Life} \label{sec:mapping-simulation-to-real-life}
 In order to understand how real light affects the chemical circuit, what needs to be established is the resolution of the circuit in real life and how it relates to the size of the detector. \cite{gorecki2003chemical} have recreated the circuit in a Petri dish, so we can use the size of the circuit in the Petri dish to map it to the size of the circuit in the simulation.
 The goal here is to find a way to measure the size of the coincidence detector in real life, for which there is currently no data. The size of the coincidence detector is crucial for the design of the Petri dish, as it determines the minimum size of the Petri dish required to accommodate the detector. 
 
@@ -66,7 +66,7 @@ This means we would need to scale the simulation up in order to have details eas
 However, as we scale it up, the surface area of the Petri dish becomes larger and the angle of incidence of the light becomes more significant, which is a problem we will explore later on in section \ref{sec:light-imperfections}.
 
 
-\section{Finding $\phi_{min}$ and $\phi_{max}$ for the Diode}
+\section{Finding $\phi_{min}$ and $\phi_{max}$ for the Diode} \label{sec:finding-phi-min-max}
 Here $\phi_{\text{passive}}$ is measured at different values because that is the value controlling the illuminated area, which makes the circuit there ``passive'' \todo{figure out if that's how quotes should be or reveresed}. This simulates less illumination of light at the diode, altering its behaviour.
 \subsection{Measuring $\phi_{min}$, $\phi_{max}$ and propagation time for the diode at different light conditions}
 
@@ -296,7 +296,7 @@ These values illustrate a significant change in illumination as the radius incre
 Concluding from these calculations, it is likely that the measurement of 24 kLux was made relatively close to the Petri dish. This is because the light intensity of 24 kLux is a practical measure for the conditions under which biological samples are typically studied. Measuring illuminance right next to the light source would yield an impractically high value, which is not as useful for experimental purposes. Hence, the measurement taken is more likely to be representative of the actual working conditions near the Petri dish.
 
 
-\section{Estimating The Maximum Petri Dish Size for a Chemical Diode \citep{gorecki2003chemical}}
+\section{Estimating The Maximum Petri Dish Size for a Chemical Diode \citep{gorecki2003chemical}} \label{sec:computer-size-limitations}
 
 
 Next thing is to add the imperfection in the simulation with only an AND gate. To do that, I need to come up with a formula about plugging in a pixel and getting out the illumincation percentage. 

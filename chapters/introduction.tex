@@ -6,3 +6,56 @@
 % what is the motivation
 % goals
 
+A chemical computer is a computer that uses chemistry to perform computations. It is a new field of research where rapid innovations have taken place in recent years.
+The project as a whole aims to explore how diffierent imperfections impact the realism of a chemical computer simulation when it is transferred to the real environment. 
+Imperfections, such as light and temperature changes are among the most significant factors that can have an effect on the correctness of the computer.
+
+\section{Document Structure}
+This project is structured in the following way:
+
+\begin{itemize}
+    \item \textbf{Introduction} introduces the project and its goals.
+    \item \textbf{Background \& Literature Review} gives a comprehensive introduction to the concepts of chemical computing and reaction diffusion.
+    \item \textbf{Design \& Implementation} gives a general overview of the tools and technologies used in the project, however each chapter will have its own section on the process of conducting measurements and calculations.
+    \item \textbf{Results} contains the body of the dissertation, where different imperfections are explored and interesting conclusions are reached.
+    \item \textbf{Conclusion \& Future Work} summarises the findings of the project and gives a direction for possible future work and enhancements.
+\end{itemize}
+
+\section{Motivation}
+During the research for the project, it was found that there is a lot of reasearch in the field, some in simulations, others in real life (see Chapter \ref{ch:background-lit-review}). 
+However, there is not much research in between the real-life chemical computers and the simulated ones, leaving many questions unanswered. These questions are covered in Section \ref{sec:goals}.
+This project was born in an effort to bridge the gap between the two, and to explore how far off the simulations are from the real world.
+
+
+\section{Project Goals}\label{sec:goals}
+The project goals revolve around exploring different imperfections that impact simulation realism.
+
+\subsection{Chemical Computer Size Limitations} \label{sec:computer-size}
+Most chemical circuits in real life are done in a petri dish and simulations are done in a 2D grid that represents that petri dish.
+It is unclear what impact the size of the petri dish has on the performace of the computer. Simulations do not take this into account and assume it works the same with any size. 
+It is also unclear how to recreate a chemical computer from a simulation into a petri dish, namely, the size of the petri dish. 
+This is because the petri dish computer is measured in mm, while the simulation is in pixels. Section \ref{sec:mapping-simulation-to-real-life} explores this.
+
+\subsection{Investigating the Effects of Imperfections on Illumination Uniformity}
+Chemical computing uses light to mould out circuits where the reactions can operate inside of a small petri dish. 
+Most research \todo{ref} uses a constant light source in the form of a hallougen light bulb, but this light source is not perfect and does not provide constant illumination across the whole dish. \todo{ref image}
+This is done in several sections because they depend on each other. 
+\begin{enumerate}
+    \item[(1)] \textbf{Establishing Computer Limits:} The limits of the computer are established in Section \ref{sec:finding-phi-min-max}.
+    \item[(2)] \textbf{Calculating Light Source Position and Imperfections:} The position of the light source is calculated in Section \ref{sec:light-imperfections}, along with the imperfections that come with it.
+\end{enumerate}
+
+\subsection{Estimating the Maximum Size of the Chemical Computer}
+The Chemical Computer is as big as the petri dish it resides in. It is interesting if there is a maximum size that the computer can be before it stops working and 
+what limits the size of the computer. 
+Using the information detailed in items (1) and (2), the maximum size of the computer is calculated in Section \ref{sec:computer-size-limitations}.
+
+\subsection{Impact of Reflection And Refraction on Light Loss}
+The OHP sheet discussed in section \ref{sec:ohp-impact} is normally unaffected by light angle because the light bulb shined across the petri dish is directly above it and the angle of the light is very close to 90 degrees.
+However, as discussed in section \ref{sec:computer-size}, as the circuit is scaled in size, the angle of the light changes and the OHP sheet starts to not let all the light through as some of it reflects away.
+This is discussed in Section \ref{sec:reflection-refraction}.
+
+\subsection{Impact of OHP Sheet Thickness on Light Absorption} \label{sec:ohp-impact}
+Chemical circuits done in a petri dish use a thin sheet of plastic to hold the circuit mask in place. Most of it is transparent except for the mask, 
+which is opaque and allos for illumination to impact only the parts of the circuit that are needed to be passive during the reaction.
+This is talked about in section \ref{sec:absorption}.

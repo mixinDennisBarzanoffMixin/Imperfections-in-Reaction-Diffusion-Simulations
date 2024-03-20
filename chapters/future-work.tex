@@ -1,5 +1,5 @@
 \chapter{Future work}
-\section{Accounting for Light Loss Due to Reflection}
+\section{Accounting for Light Loss Due to Reflection} \label{sec:reflection-refraction}
 ok let's make some assumptions, the OHP sheet they use to block off light, tell me more about it, is it transparent or not? how far away do they usually put it? it's fine to make assumptions because it's not in the paper, probably it's obvious. using that we woudl also assume waht it is made of, and taht would allow for us to calculate the intensity of the light after being blocked by the sheet, using that, we would mark that as phi passive. then i have what's phi active and what's phi passive. using that, I would assume a reasonable function like sigmoid because of some argument and then map, for the actual mapping, I would need to know where the sigmoid starts and ends based on more assumptions, like, the thing can't get more active (it's dark and stuf), but can get infinitely passive. if we put the sun 13cm away, then the waves would melt instantly upon going out of the activator, so we need to assume some realtionship
 
 
@@ -35,7 +35,7 @@ At an angle of incidence of 45 degrees, and assuming the refractive index for ai
 Using these Fresnel equations, we account for the angle-dependent transmission of light through the OHP sheet, complementing the Beer-Lambert Law used to calculate the light intensity after absorption by the material.
 
 
-\section{Beer-Lambert Law for Absorption}
+\section{Beer-Lambert Law for Absorption} \label{sec:absorption}
 \todo{Move to future work, looking at phi act and phi pass are related, atm we are varying passive, but activve would change as well, atm we are making the assumption no light is going through ,but could calculate their relationship using some fomrula for absorbtion like this }
 The Beer-Lambert Law describes how the intensity of light decreases as it passes through an absorbing medium:
 \[ I = I_0 \cdot e^{-\alpha \cdot l} \]
