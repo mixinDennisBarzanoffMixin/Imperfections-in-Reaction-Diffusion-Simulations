@@ -61,34 +61,88 @@ For a dimension of \(10 \text{ mm} \times 4.4 \text{ mm}\), the conversion would
 \end{align*}
 
 Thus, a real-life size of \(10 \text{ mm} \times 4.4 \text{ mm}\) would map to a size of \(50 \text{ px} \times 22 \text{ px}\) in the simulation.
-More importantly, the simulation uses details as small as $1\text{px}^2$, which would amount to $\frac{1}{25}\text{mm}^2$ in real life, which would be infeasible because details smaller than $1\text{mm}^2$ are difficult to control accurately.
+More importantly, the simulation uses details as small as $1\text{px}^2$, which would amount to $\frac{1}{5}\text{mm}^2$ in real life, which would be infeasible because details smaller than $1\text{mm}^2$ are difficult to control accurately.
 This means we would need to scale the simulation up in order to have details easier to control. 
 However, as we scale it up, the surface area of the Petri dish becomes larger and the angle of incidence of the light becomes more significant, which is a problem we will explore later on in section \ref{sec:light-imperfections}.
+The reason there is a section before that is because 
 
 
-\section{Finding $\phi_{min}$ and $\phi_{max}$ for the Diode} \label{sec:finding-phi-min-max}
-Here $\phi_{\text{passive}}$ is measured at different values because that is the value controlling the illuminated area, which makes the circuit there ``passive'' \todo{figure out if that's how quotes should be or reveresed}. This simulates less illumination of light at the diode, altering its behaviour.
-\subsection{Measuring $\phi_{min}$, $\phi_{max}$ and propagation time for the diode at different light conditions}
+\section{Finding $\phi_{\text{min}}$ and $\phi_{\text{max}}$ for a Chemical Diode} \label{sec:finding-phi-min-max}
+As mentioned in equation \ref{eq:u-partial-t}, $\phi$ is external illumination that creates the chemical circuit. It sets the value of $\phi$ to either $\phi_{\text{active}}$ or $\phi_{\text{passive}}$. 
+$\phi$ values control the lighting conditions of the chemical circuit.
+Active regions are where it is dark/unilluminated and passive regions are where there is light/illlumination.
+The reason behind the need to measure the $\phi$ values for a Chemical Diode stems from the fact that a chemical diode is less sensitive to changes in $\phi$ values than other chemical components.
+This means that the diode can still operate even outside the values for $\phi$ established in literature. In order to see where chemical computers break, we need to measure each component and see where it breaks.
+The operational range for a whole computer is the intersection of the operational ranges of every component, which is equal to that of the most sensitive performing component.
+Here $\phi_{\text{passive}}$ is measured at different values because that is the value controlling the illuminated area, which makes the circuit there ``passive''. This simulates less illumination of light at the diode, altering its behaviour.
+\subsection{Measuring $\phi_{\text{min}}$, $\phi_{\text{max}}$}
 
 
-During the evaluation of $\phi_{min}$, $\phi_{max}$, the diode had to be tested from numerous directions to determine the minimum and maximum values of $\phi_{\text{passive}}$ where it still functions correctly as a diode, which means that it passes waves from right to left, but never from left to right. As we approach the limits, new cases start appearing where the wave becomes able to pass through from a very specific angle that changes as we change the phi value, making it impossible to automatically test, so manual testing was needed to verify if the diode works in every single use case for the limit phi values. Also, the minimum and maximum values start to highly depend on the testing conditions, and whether the diode works or not starts to depend on how you are using it; for example, do you start a wave right at the diode? If not, what is the minimum distance the diode has to work for? This greatly changes the minimum and maximum phi values. 
+During the evaluation of $\phi_{\text{min}}$, $\phi_{\text{max}}$, the diode had to be tested from numerous directions to determine the minimum and maximum values of $\phi_{\text{passive}}$ where it still functions correctly as a diode, 
+which means that it passes waves from right to left, but never from left to right. As we approach the limits, new cases start appearing where the wave becomes able to pass through from a very specific angle that changes as we change the phi value, 
+making it impossible to automatically test, so manual testing was needed to verify if the diode works in every single use case for the limit phi values. Also, the minimum and maximum values start to highly depend on the testing conditions, 
+and whether the diode works or not starts to depend on how you are using it; for example, do you start a wave right at the diode? 
+If not, what is the minimum distance the diode has to work for? This greatly changes the minimum and maximum phi values. 
+\subsubsection*{Measurement Methodology}
+The measurement was done by starting a wave at a distance from the diode and measuring if it passes through the diode. 
+it's done from both directions.
+tested from multiple angles and distances and qualitatively assessed if it still performs as a diode under every single case.
+The investigation is trying to establish $\phi_{\text{min}}$ and $\phi_{\text{max}}$ for the diode, which are the operational boundaries for the $\phi_{\text{passive}}$ values that the diode can tolerate, 
+which represent the less than ideal lighting conditions are are trying to explore.
+we know that the diode operates mostly at $\phi_{\text{passive} = \phi_{\text{literature}}} = 0.0975$. 
+We start from this value and start going in both directions, increasing and decreasing the value of $\phi_{\text{passive}}$ and measuring if the diode still works.
+$\phi_{\text{current}} = \phi_{\text{literature}} = 0.0975$
+\begin{algorithm}
+    \caption{Detailed $\phi$ Exploration Algorithm. It works by starting from $\phi_{\text{literature}}$ and searching for the last value where the diode still works. 
+    The function \text{TestDiode} returns true if the diode works and false if it does not. This is done manually by performing comprehensive tests on the diode from both directions. 
+    It should let the wave through from right to left, but never from left to right. This shall be true for all angles and distances.
+    The whole algorithm is run manually and is written out here just for illustrative purposes.}
+    \label{alg:phi-exploration}
+    \begin{algorithmic}[1]
+        \State $\phi_{\text{current}} \leftarrow \phi_{\text{literature}}$
+        \State $precision \leftarrow 0.5$ \Comment{Starting precision}
+        \State $step \leftarrow 0.05$ \Comment{Initial step size}
+        \While{$precision \geq 0.0001$} \Comment{Continue until precision is fine enough}
+            \State $found \leftarrow$ \textbf{false}
+            \While{\textbf{not} $found$}
+                \If{\text{TestDiode}($\phi_{\text{current}} + step$)}
+                    \State $\phi_{\text{current}} \leftarrow \phi_{\text{current}} + step$
+                \ElsIf{\text{TestDiode}($\phi_{\text{current}} - step$)}
+                    \State $\phi_{\text{current}} \leftarrow \phi_{\text{current}} - step$
+                \Else
+                    \State $found \leftarrow$ \textbf{true}
+                \EndIf
+            \EndWhile
+            \State $precision \leftarrow precision / 10$ \Comment{Increase precision}
+            \State $step \leftarrow 0.5 * precision$ \Comment{Adjust step size based on new precision}
+        \EndWhile
+        \State $\phi_{\text{functional}} \leftarrow \phi_{\text{current}}$
+    \end{algorithmic}
+\end{algorithm}
+
+
+Algorithm \ref{alg:phi-exploration} outlines the process of finding the boundaries of $\phi_{\text{passive}}$ for the diode. It is run twice, 
+once with \verb|step=0.05| and once with \verb|step=-0.05| to go in the other direction.
+
+\subsubsection*{Results}
 
 Results of measurement: 
 \begin{itemize}
-    \item $\phi_{max} = 0.106127$
-    \item $\phi_{min} = 0.09555$
+    \item $\phi_{\text{max}} = 0.106127$
+    \item $\phi_{\text{min}} = 0.09555$
 \end{itemize}
 
-That is, as long as $\phi_{min} < \phi_{\text{passive}} < \phi_{max}$, then the diode will function as expected, even though the propagation time would still be affected (as seen in Figure \ref{fig:phi_passive_propagation_times}), causing synchronisation problems in larger circuits.
+That is, as long as $\phi_{\text{min}} < \phi_{\text{passive}} < \phi_{\text{max}}$, then the diode will function as expected, even though the propagation time would still be affected (as seen in Figure \ref{fig:phi_passive_propagation_times}), causing synchronisation problems in larger circuits.
 
 
+\subsection{Propagation Time Variation of the Diode Under Different Lighting Conditions}
 The way the experiment was set up was that a diode was set up in Figure \ref{fig:diode_experiment} where a wave was launched 25 px from the diode to allow it to pass through the diode and reach a small white flag where the wave is expected and the experiments are evaluated. A step in the diagram means one simulation pass. The parameters of the experiment were the following:
 \begin{itemize}
     \item Number of $\phi_{\text{passive}}$ values: 30, of which only 19 succeeded, the remaining 11 could not pass through the diode due to the parameter being too out of range.
     \item Interval size: 0.0013448276
     \item Number of runs per $\phi_{\text{passive}}$ values: 7
-    \item $\phi_{start}$: 0.08066608
-    \item $\phi_{end}$: 0.121010914, never reached because once a wave passes through the diode, the concentration no longer reaches zero fully and that leaves a very small amount of inhibitor at the diode and due to the borderline value of $\phi_{\text{passive}}$ the next waves never manage to penetrate to get measured, so the highest measured value for $\phi_{\text{passive}}$ is 0.10487298
+    \item $\phi_{\text{start}}$: 0.08066608
+    \item $\phi_{\text{end}}$: 0.121010914, never reached because once a wave passes through the diode, the concentration no longer reaches zero fully and that leaves a very small amount of inhibitor at the diode and due to the borderline value of $\phi_{\text{passive}}$ the next waves never manage to penetrate to get measured, so the highest measured value for $\phi_{\text{passive}}$ is 0.10487298
     \item Wave start: 39px before diode, arbitrary distance to allow the wave to form.
     \item Wave measure: 31px after diode, arbitrary distance.
     \item $dt$: 0.001, also serves as a reference point for the amount of steps.
@@ -115,7 +169,7 @@ The diode also has a high tolerance to $\phi_{\text{passive}}$ increasing due to
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{Screenshot 2024-03-09 at 10.35.01.png}
-    \caption{Propagation times for various $\phi_{\text{passive}}$ values within the limits of $\phi_{min}$ and $\phi_{max}$, illustrating the experimental outcomes of testing a diode in a Belousov–Zhabotinsky reaction. Each point represents a propagation time measurement for a given $\phi_{\text{passive}}$, with the average propagation time across measurements shown by a thicker black line. The shaded area between $\phi_{min}$ (red dashed line) and $\phi_{max}$ (blue dashed line) highlights the range where the diode works correctly, with the optimal $\phi$ marked by a solid green line.}
+    \caption{Propagation times for various $\phi_{\text{passive}}$ values within the limits of $\phi_{\text{min}}$ and $\phi_{\text{max}}$, illustrating the experimental outcomes of testing a diode in a Belousov-Zhabotinsky reaction. Each point represents a propagation time measurement for a given $\phi_{\text{passive}}$, with the average propagation time across measurements shown by a thicker black line. The shaded area between $\phi_{\text{min}}$ (red dashed line) and $\phi_{\text{max}}$ (blue dashed line) highlights the range where the diode works correctly, with the optimal $\phi$ marked by a solid green line.}
     \label{fig:phi_passive_propagation_times}
     
 \end{figure}
@@ -123,7 +177,7 @@ The diode also has a high tolerance to $\phi_{\text{passive}}$ increasing due to
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{Screenshot 2024-03-10 at 07.50.59.png}
-    \caption{Propagation times at $\phi_{max} - $}
+    \caption{Propagation times around the value of $\phi_{\text{max}}$. The range of $\phi$ is $\phi_{\text{max}} - 7 \times 10^{-6} \leq \phi \leq \phi_{\text{max}} + 3 \times 10^{-6}$}
     \label{fig:phi_passive_propagation_times_detail_max}
 \end{figure}
 
@@ -132,29 +186,37 @@ The diode also has a high tolerance to $\phi_{\text{passive}}$ increasing due to
 \begin{figure}
 	\centering
 	\begin{subfigure}{0.24\textwidth}
-		\includegraphics[width=\linewidth]{diode/easy/Screenshot 2024-03-09 at 16.21.56.png} 
+		\includegraphics[width=\linewidth]{diode/easy/Screenshot 2024-03-09 at 16.21.56.png}
+		\caption*{$t = 1$}
 	\end{subfigure}
 	\begin{subfigure}{0.24\textwidth}
-		\includegraphics[width=\linewidth]{diode/easy/Screenshot 2024-03-09 at 16.22.24.png} 
+		\includegraphics[width=\linewidth]{diode/easy/Screenshot 2024-03-09 at 16.22.24.png}
+		\caption*{$t = 2$}
 	\end{subfigure}
     \begin{subfigure}{0.24\textwidth}
-		\includegraphics[width=\linewidth]{diode/easy/Screenshot 2024-03-09 at 16.22.35.png} 
+		\includegraphics[width=\linewidth]{diode/easy/Screenshot 2024-03-09 at 16.22.35.png}
+		\caption*{$t = 3$}
 	\end{subfigure}
     \begin{subfigure}{0.24\textwidth}
-		\includegraphics[width=\linewidth]{diode/easy/Screenshot 2024-03-09 at 16.22.45.png} 
+		\includegraphics[width=\linewidth]{diode/easy/Screenshot 2024-03-09 at 16.22.45.png}
+		\caption*{$t = 4$}
 	\end{subfigure}
 
 	\begin{subfigure}{0.24\textwidth}
-		\includegraphics[width=\linewidth]{diode/hard/Screenshot 2024-03-09 at 16.23.41.png} 
+		\includegraphics[width=\linewidth]{diode/hard/Screenshot 2024-03-09 at 16.23.41.png}
+		\caption*{$t = 1$}
 	\end{subfigure}
 	\begin{subfigure}{0.24\textwidth}
-		\includegraphics[width=\linewidth]{diode/hard/Screenshot 2024-03-09 at 16.23.48.png} 
+		\includegraphics[width=\linewidth]{diode/hard/Screenshot 2024-03-09 at 16.23.48.png}
+		\caption*{$t = 2$}
 	\end{subfigure}
     \begin{subfigure}{0.24\textwidth}
-		\includegraphics[width=\linewidth]{diode/hard/Screenshot 2024-03-09 at 16.23.55.png} 
+		\includegraphics[width=\linewidth]{diode/hard/Screenshot 2024-03-09 at 16.23.55.png}
+		\caption*{$t = 3$}
 	\end{subfigure}
     \begin{subfigure}{0.24\textwidth}
-		\includegraphics[width=\linewidth]{diode/hard/Screenshot 2024-03-09 at 16.24.01.png} 
+		\includegraphics[width=\linewidth]{diode/hard/Screenshot 2024-03-09 at 16.24.01.png}
+		\caption*{$t = 4$}
 	\end{subfigure}
 
 	\caption{Comparison of two waves passing through a diode. Above $\phi_{\text{passive}} = \phi_{\text{literature}}$, below $\phi_{\text{passive}} = \phi_{max}$. Both have different propagation speeds, so they have been equalised for the purpose of comparing their interaction with the diode side by side. The second wave takes substantially more time to form and is about 700 time steps slower as seen in Figure \ref{fig:phi_passive_propagation_times_detail_max}, which is quite a lot in such simulations.}
@@ -212,7 +274,7 @@ It is very important to calculate how far away the light source is from the Petr
 In real experiments, the chemical reaction that occurs on the gel surface is sensitive to light due to the specific catalyst used (Ru(bpy)$_3$SO$_4$). 
 However, to observe and record the process, they need to use light to illuminate the gel, so that the camera can capture images. The experiment design, including time-varying intervals of different light intensities, allows them to balance between controlling the reaction and capturing the activity on the gel. \cite{TOTH20091605}
 
-From what I see, they all project a single light bulb and then use a mask to have the shape they want projected, such that light does not kill off the reaction and there is light everywhere else. This is important to show how imperfections can affect the simulation . \cite{gorecki2003chemical}
+They all project a single light bulb and then use a mask to have the shape they want projected, such that light does not kill off the reaction and there is light everywhere else. This is important to show how imperfections can affect the simulation . \cite{gorecki2003chemical}
 An experimental setup for observing pulses in a photosensitive BZ reaction, as detailed in the work by Gorecki et al., is illustrated in the following Figure~\ref{fig:gorecki-setup}. This setup is crucial for understanding the dynamics of light-sensitive chemical reactions and their applications in computational models.
 
 \begin{figure}[H]
@@ -224,7 +286,7 @@ An experimental setup for observing pulses in a photosensitive BZ reaction, as d
 
 \cite[71]{cui2004synchronization} contains a similar setup and goes into more detail how they project the pattern onto the gel. 
 The book goes into more detail helpful for understanding the real-life environment where the waves propagate. 
-One interesting observation is that the observation angle seems to change where we see the wave, idk if that is relevant \citep{cui2004synchronization}.
+One interesting observation is that the observation angle seems to change where we see the wave, which might be relevant for measuring the size of the waves, however this is not explored in this project.
 
 \begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Assumption]
 Unfortunately, \cite{gorecki2003chemical} do not specify how far away the light bulb projector is, which is used to illuminate the Petri dish, but we can assume the projector is far away, such that the angle of light projection is very close to $90^\circ$, making the effect of the angle insignificant. 
@@ -410,38 +472,3 @@ we already have a minimum and maximum in the simulation ,we can check if they be
 The main idea is that when there is no activator in the solution,  \citep{reddy1995effect}
 
 
-
-\subsection*{Beer-Lambert Law for Absorption}
-\todo{Move to future work, looking at phi act and phi pass are related, atm we are varying passive, but activve would change as well, atm we are making the assumption no light is going through ,but could calculate their relationship using some fomrula for absorbtion like this }
-The Beer-Lambert Law describes how the intensity of light decreases as it passes through an absorbing medium:
-\[ I = I_0 \cdot e^{-\alpha \cdot l} \]
-where:
-\begin{itemize}
-    \item \(I_0\) is the initial light intensity before hitting the OHP sheet.
-    \item \(I\) is the light intensity after passing through the material.
-    \item \(\alpha\) is the absorption coefficient of the OHP sheet material.
-    \item \(l\) is the thickness of the OHP sheet.
-\end{itemize}
-
-For our calculations, we assume an absorption coefficient \(\alpha = 1\ \text{m}^{-1}\) and a thickness \(l = 0.004\) meters (4 mm).
-
-\subsection*{Fresnel Equations for Transmission}
-The Fresnel equations determine how much light is transmitted and reflected at an interface, depending on the angle of incidence. For non-polarized light and considering both s-polarized and p-polarized components, the average transmission \(T\) can be approximated by:
-\[ T = \frac{T_s + T_p}{2} \]
-where \(T_s\) and \(T_p\) are the transmission coefficients for s-polarized and p-polarized light, respectively. These coefficients are calculated using the refractive indices of the air (\(n_1\)) and the OHP sheet material (\(n_2\)), and the angle of incidence \(\theta_i\).
-
-\subsection*{Calculation at 45 Degrees Angle of Incidence}
-At a 45-degree angle of incidence, we calculated the transmission coefficients for s-polarized and p-polarized light, and found the average transmission \(T\) to be approximately 0.950. This indicates that about 95\% of the light is transmitted through the OHP sheet at this angle.
-
-Combining the effects of absorption and transmission, the final intensity \(I_{\text{final}}\) of light after passing through the OHP sheet and considering the angle of incidence is given by:
-\[ I_{\text{final}} = I_0 \cdot e^{-\alpha \cdot l} \cdot T \]
-
-Substituting the given values and assumptions, we find:
-\[ I_{\text{final}} \approx 0.946 \]
-This result indicates that the combined effect of slight absorption by the OHP sheet and the reduction in transmission due to the 45-degree angle of incidence leads to a final light intensity of approximately 94.6\% of the initial intensity.
-
-These calculations demonstrate the importance of considering both material properties and geometric factors, such as the angle of incidence, when modelling the transmission of light through materials in experimental setups.
-
-
-
-\todo{the diffusion assumes 100\% goes through at the centre of the  light source, it's more like 99\% or something}

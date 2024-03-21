@@ -10,6 +10,9 @@ i can see they also put non-transparent material to block off the light after th
 To model the impact of an Overhead Projector (OHP) sheet on light intensity, we consider two main effects: absorption within the material and transmission due to the angle of incidence. We employ the Beer-Lambert Law for absorption and a simplified version of the Fresnel equations for transmission.
 
 \subsection*{Fresnel Equations for Transmission}
+The Fresnel equations determine how much light is transmitted and reflected at an interface, depending on the angle of incidence. For non-polarized light and considering both s-polarized and p-polarized components, the average transmission \(T\) can be approximated by:
+\[ T = \frac{T_s + T_p}{2} \]
+where \(T_s\) and \(T_p\) are the transmission coefficients for s-polarized and p-polarized light, respectively. These coefficients are calculated using the refractive indices of the air (\(n_1\)) and the OHP sheet material (\(n_2\)), and the angle of incidence \(\theta_i\).
 The Fresnel equations describe the reflection and transmission of light when it hits an interface between two different media. For s-polarized light (electric field perpendicular to the plane of incidence) and p-polarized light (electric field parallel to the plane of incidence), the transmission coefficients can be calculated as follows:
 
 For s-polarized light:
@@ -34,27 +37,6 @@ At an angle of incidence of 45 degrees, and assuming the refractive index for ai
 
 Using these Fresnel equations, we account for the angle-dependent transmission of light through the OHP sheet, complementing the Beer-Lambert Law used to calculate the light intensity after absorption by the material.
 
-
-\section{Beer-Lambert Law for Absorption} \label{sec:absorption}
-\todo{Move to future work, looking at phi act and phi pass are related, atm we are varying passive, but activve would change as well, atm we are making the assumption no light is going through ,but could calculate their relationship using some fomrula for absorbtion like this }
-The Beer-Lambert Law describes how the intensity of light decreases as it passes through an absorbing medium:
-\[ I = I_0 \cdot e^{-\alpha \cdot l} \]
-where:
-\begin{itemize}
-    \item \(I_0\) is the initial light intensity before hitting the OHP sheet.
-    \item \(I\) is the light intensity after passing through the material.
-    \item \(\alpha\) is the absorption coefficient of the OHP sheet material.
-    \item \(l\) is the thickness of the OHP sheet.
-\end{itemize}
-
-For our calculations, we assume an absorption coefficient \(\alpha = 1\ \text{m}^{-1}\) and a thickness \(l = 0.004\) meters (4 mm).
-
-\subsection*{Fresnel Equations for Transmission}
-The Fresnel equations determine how much light is transmitted and reflected at an interface, depending on the angle of incidence. For non-polarized light and considering both s-polarized and p-polarized components, the average transmission \(T\) can be approximated by:
-\[ T = \frac{T_s + T_p}{2} \]
-where \(T_s\) and \(T_p\) are the transmission coefficients for s-polarized and p-polarized light, respectively. These coefficients are calculated using the refractive indices of the air (\(n_1\)) and the OHP sheet material (\(n_2\)), and the angle of incidence \(\theta_i\).
-
-\subsection*{Calculation at 45 Degrees Angle of Incidence}
 At a 45-degree angle of incidence, we calculated the transmission coefficients for s-polarized and p-polarized light, and found the average transmission \(T\) to be approximately 0.950. This indicates that about 95\% of the light is transmitted through the OHP sheet at this angle.
 
 Combining the effects of absorption and transmission, the final intensity \(I_{\text{final}}\) of light after passing through the OHP sheet and considering the angle of incidence is given by:
@@ -69,3 +51,17 @@ These calculations demonstrate the importance of considering both material prope
 
 
 \todo{the diffusion assumes 100\% goes through at the centre of the  light source, it's more like 99\% or something}
+
+\section{Beer-Lambert Law for Absorption} \label{sec:absorption}
+\todo{Move to future work, looking at phi act and phi pass are related, atm we are varying passive, but activve would change as well, atm we are making the assumption no light is going through ,but could calculate their relationship using some fomrula for absorbtion like this }
+The Beer-Lambert Law describes how the intensity of light decreases as it passes through an absorbing medium:
+\[ I = I_0 \cdot e^{-\alpha \cdot l} \]
+where:
+\begin{itemize}
+    \item \(I_0\) is the initial light intensity before hitting the OHP sheet.
+    \item \(I\) is the light intensity after passing through the material.
+    \item \(\alpha\) is the absorption coefficient of the OHP sheet material.
+    \item \(l\) is the thickness of the OHP sheet.
+\end{itemize}
+
+For our calculations, we assume an absorption coefficient \(\alpha = 1\ \text{m}^{-1}\) and a thickness \(l = 0.004\) meters (4 mm).
