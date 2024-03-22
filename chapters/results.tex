@@ -135,7 +135,11 @@ Results of measurement:
 That is, as long as $\phi_{\text{min}} < \phi_{\text{passive}} < \phi_{\text{max}}$, then the diode will function as expected, even though the propagation time would still be affected (as seen in Figure \ref{fig:phi_passive_propagation_times}), causing synchronisation problems in larger circuits.
 
 
-\subsection{Propagation Time Variation of the Diode Under Different Lighting Conditions}
+\subsection{Propagation Time Variation of the Diode Under Different Lighting Conditions}\label{sec:propagation-time-variation}
+The reason we are looking at propagation time varyiation is because if that changes in response to the lighting conditions,
+then the diode will behave as expected, but larger circuits that synchronise with the output of that diode and other chemical components
+will be affected by this change and might not work as expected.
+\subsubsection*{Methodology}
 The way the experiment was set up was that a diode was set up in Figure \ref{fig:diode_experiment} where a wave was launched 25 px from the diode to allow it to pass through the diode and reach a small white flag where the wave is expected and the experiments are evaluated. A step in the diagram means one simulation pass. The parameters of the experiment were the following:
 \begin{itemize}
     \item Number of $\phi_{\text{passive}}$ values: 30, of which only 19 succeeded, the remaining 11 could not pass through the diode due to the parameter being too out of range.
@@ -143,10 +147,12 @@ The way the experiment was set up was that a diode was set up in Figure \ref{fig
     \item Number of runs per $\phi_{\text{passive}}$ values: 7
     \item $\phi_{\text{start}}$: 0.08066608
     \item $\phi_{\text{end}}$: 0.121010914, never reached because once a wave passes through the diode, the concentration no longer reaches zero fully and that leaves a very small amount of inhibitor at the diode and due to the borderline value of $\phi_{\text{passive}}$ the next waves never manage to penetrate to get measured, so the highest measured value for $\phi_{\text{passive}}$ is 0.10487298
-    \item Wave start: 39px before diode, arbitrary distance to allow the wave to form.
-    \item Wave measure: 31px after diode, arbitrary distance.
+    \item Wave start: 39px before diode, which was observed to be enough to allow for the proper formation of the wave
+    such that it can pass through the diode.
+    \item Wave measure: 31px after diode, which was far away enough to measure a fully formed wave, provided
+    that one passed through the diode. 
     \item $dt$: 0.001, also serves as a reference point for the amount of steps.
-    \item Measurement interval: about every 50 steps, depending on the GPU frame rendering schedule
+    \item Measurement interval: about every 5 steps, depending on the GPU frame rendering schedule
 \end{itemize}
 
 It is possible to run the experiment much more accurately, eliminating the need for multiple runs for the same $\phi_{\text{passive}}$ value we measured at every step and did not simulate another step in the simulation until the measurement was complete. However, that would drastically slow down the experiment, making it run for hours instead of minutes. For the purposes of merely showing that the propagation changes along with the slope, it was enough accuracy, so the faster and more inaccurate solution was chosen.
@@ -158,18 +164,26 @@ It is possible to run the experiment much more accurately, eliminating the need 
     \label{fig:diode_experiment}
 \end{figure}
 
-So, I found the following limitation while working with the simulation. Due to the act that in metal sampling is a rendering operation, it cannot be done during the computation of the simulation. That means that I would have to synchronise it to run with rendering speed, but that would make the simulation too slow to run many experiments. It uses the step speed of the simulation, 1 frame = about 150 steps in the simulation. This is still accurate enough. I ran at $dt=0.001$.
+So, the following limitation were found while working with the simulation. Due to the act that in metal sampling is a rendering operation, it cannot be done during the computation of the simulation. That means that I would have to synchronise it to run with rendering speed, but that would make the simulation too slow to run many experiments. It uses the step speed of the simulation, 1 frame = about 150 steps in the simulation. This is still accurate enough. I ran at $dt=0.001$.
+To get better results the computation was run at $dt=0.001$ was done every 300 microseconds.
+Additional values were added in between $\phi_{\text{min}}$ and $\phi_{\text{max}}$ where the curve started to change, and the results can be seen in Figure \ref{fig:phi_passive_propagation_times_detail_max}.
 
 \subsection{Results}
 
 The results of the experiment can be seen in Figure \ref{fig:phi_passive_propagation_times}. The propagation time decreases as there is less light, indicated by the decrease in the value of $\phi_{\text{passive}}$ and the reverse. This is to be expected, as a lower value brings it closer to $\phi_{\text{active}}$ (darkness), and illumination is an inhibitor. 
-The reason the circuit has a higher tolerance to less light, compared to more light, is because the diode is much more resistant in the reverse direction as the wave has to go through a reverse triangle \todo{figure out how the point thing is called}. 
-The diode also has a high tolerance to $\phi_{\text{passive}}$ increasing due to an additional spike added to the diode, which helps weaves to cross the gap easier, even when there is more light. \todo{measure without the spike, how bad is it}. The reason for $\phi_{max} < \phi_{end}$, meaning the diode was still letting the wave through left to right and not right to left at $\phi_{end}$, but it was not at other angles when tested, so the experiment measured propagation time, but the diode was only partially functional at these values
+The reason the circuit has a higher tolerance to less light, compared to more light, is because the diode is much more resistant in the reverse direction as the wave has to go through a reverse triangle, 
+which is specifically made to stop the propagation of waves. 
+The diode also has a high tolerance to $\phi_{\text{passive}}$ increasing due to an additional spike added to the diode, which helps weaves to cross the gap easier, even when there is more light. The reason for $\phi_{\text{max}} < \phi_{\text{end}}$, meaning the diode was still letting the wave through left to right and not right to left at $\phi_{end}$, but it was not at other angles when tested, so the experiment measured propagation time, but the diode was only partially functional at these values
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{Screenshot 2024-03-09 at 10.35.01.png}
-    \caption{Propagation times for various $\phi_{\text{passive}}$ values within the limits of $\phi_{\text{min}}$ and $\phi_{\text{max}}$, illustrating the experimental outcomes of testing a diode in a Belousov-Zhabotinsky reaction. Each point represents a propagation time measurement for a given $\phi_{\text{passive}}$, with the average propagation time across measurements shown by a thicker black line. The shaded area between $\phi_{\text{min}}$ (red dashed line) and $\phi_{\text{max}}$ (blue dashed line) highlights the range where the diode works correctly, with the optimal $\phi$ marked by a solid green line.}
+    \caption{Propagation times for various $\phi_{\text{passive}}$ values within the limits of $\phi_{\text{min}}$ and $\phi_{\text{max}}$, 
+    illustrating the experimental outcomes of testing a diode in a Belousov-Zhabotinsky reaction. 
+    Each point represents a propagation time measurement for a given $\phi_{\text{passive}}$, 
+    with the average propagation time across measurements shown by a thicker black line. 
+    The shaded area between $\phi_{\text{min}}$ (red dashed line) and $\phi_{\text{max}}$ (blue dashed line) highlights the range 
+    where the diode works correctly, with the $\phi$ used commonly in literature marked by a solid green line.}
     \label{fig:phi_passive_propagation_times}
     
 \end{figure}

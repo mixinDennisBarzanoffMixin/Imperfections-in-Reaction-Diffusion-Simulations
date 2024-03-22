@@ -2,6 +2,13 @@
 The project experimented with Flutter for the initial simulation due to the benefits of pixel-level control and fast prototyping (see Figure \ref{fig:first-waves} for a preview of the first successful waves). However, the rendering was too slow for large chemical circuits, so the GPU was needed, for which, as of March 2024 Flutter still has no official support. A custom version of the newest engine was tested to expose experimental GPU APIs as detailed in \href{flutter.dev/go/impeller-dart}{flutter.dev/go/impeller-dart}.
 That did not work, so the Metal library was used to compute the simulation on the GPU. 
 The Metal library is a low-level, high-performance API for the GPU, and it was chosen for its ability to run on Apple devices, which are widely used in the scientific community, the execution graph for the simulation is illustrated in Figure \ref{fig:metal-dependency-pipline}.
+The implementation is done using two buffers and two CPU threads.
+While the compute thread is computing the next state of the simulation by sending commands to the GPU,
+the render thread is displaying the current state of the simulation on the screen.
+The CPU has no knowledge of the state of the simulation and the assets used stay solely on the GPU, both 
+during computation and during rendering. This allows for very high performance that is possible only because
+of the fact that there is no copying of data between the CPU and the GPU aside from simple buffers used for communication.
+
 
 \begin{figure}
     \centering
@@ -10,14 +17,21 @@ The Metal library is a low-level, high-performance API for the GPU, and it was c
     \label{fig:metal-dependency-pipline}
 \end{figure}
 
+Conducting measurements was implemented using a sampling shader, which runs on the GPU, it is given a coordinate and returns information
+back to the CPU. This is desyncrhonised from the computation of the simulation because it does not run on the compute thread.
+Another more efficient and accurate way to measure is to add the measurement buffers directly to the compute shader.
+That would allow for the measurement to happen at the same time and could also track the simulation time steps,
+which is something that is not easy with the current implementation. 
+
 
 The mathematical principles in the Oregonator model are described in section \ref{sec:oregonator-math}.
 The parameters for the simulation are listed under table \ref{tab:simulation-parameters}. 
 They are standard values widely used in the literature that experiments with the Oregonator model.
+What each of them does is described in Chapter \ref{ch:introduction}.
 
 
 
-\begin{table}[H]
+\begin{table}
     \centering
     \begin{tabularx}{\textwidth}{|X|X|} 
         \hline
