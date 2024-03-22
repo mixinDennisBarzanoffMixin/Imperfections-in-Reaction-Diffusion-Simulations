@@ -1,6 +1,6 @@
 
 \chapter{Results} \label{ch:results}
-This chapter aims to explore the operational boundaries of the chemical components in a Petri dish environment, focusing on the size limitations of the coincidence detector and the light sensitivity of a chemical diode.
+This chapter aims to explore the operational boundaries of the chemical components in a petri dish environment, focusing on the size limitations of the coincidence detector and the light sensitivity of a chemical diode.
 A coincidence detector is crucial in the design of chemical circuits because it allows for an implementation of AND gates,
 which are important for computing. This detector is illustrated in Figure \ref{fig:and-gate} and it works by having two waves come together from left and right and if they meet, they form a new wave that passes through the detector at the bottom.
 
@@ -91,8 +91,8 @@ The length of the coincidence detector depends on two factors:
 This will be used in Section \ref{sec:mapping-simulation-to-real-life} to compare it with a real chemical AND gate to establish a mapping.
 
 \section{Mapping the Simulation Size to Real Life} \label{sec:mapping-simulation-to-real-life}
-In order to understand how real light affects the chemical circuit, what needs to be established is the resolution of the circuit in real life and how it relates to the size of the detector. \cite{gorecki2003chemical} have recreated the circuit in a Petri dish, so we can use the size of the circuit in the Petri dish to map it to the size of the circuit in the simulation.
-The goal here is to find a way to measure the size of the coincidence detector in real life, for which there is currently no data. The size of the coincidence detector is crucial for the design of the Petri dish, as it determines the minimum size of the Petri dish required to accommodate the detector. 
+In order to understand how real light affects the chemical circuit, what needs to be established is the resolution of the circuit in real life and how it relates to the size of the detector. \cite{gorecki2003chemical} have recreated the circuit in a petri dish, so we can use the size of the circuit in the petri dish to map it to the size of the circuit in the simulation.
+The goal meantioned in Goal 1 of Section \ref{sec:goals-lit-review} is to find a way to measure the size of the coincidence detector in real life, for which there is currently no data. The size of the coincidence detector is crucial for the design of the petri dish, as it determines the minimum size of the petri dish required to accommodate the detector. 
 
 In order to measure that, the coincidence detector had to be designed first and that is covered in Appendix~\ref{chap:creating-detector}, the final component is illustrated in Figure \ref{fig:and-gate}.
 
@@ -106,7 +106,7 @@ In order to measure that, the coincidence detector had to be designed first and 
 
 The design of the detector (Fig. \ref{fig:and-gate}) implies that there is no max size for the length of the coincidence medium in the detector circuit as the waves have a width equal to the width of the coincidence channel.
 \begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Assumption]
-    The size of the Petri dish is \textbf{assumed} to be unsubstantially larger than the size of the chemical circuit inside of it. Continuing from both sizes are referred to interchangeably.
+    The size of the petri dish is \textbf{assumed} to be unsubstantially larger than the size of the chemical circuit inside of it. Continuing from both sizes are referred to interchangeably.
 \end{tcolorbox}
 A significant milestone in the practical application of chemical computing was achieved through the real-life implementation of an AND gate using the Belousov-Zhabotinsky (BZ) reaction. This implementation, detailed by \cite{gorecki2003chemical} and shown in Figure \ref{fig:bz-and-gate}, serves as a cornerstone example of how chemical reactions can be harnessed for computational purposes.
 
@@ -118,8 +118,8 @@ A significant milestone in the practical application of chemical computing was a
 \end{figure}
 
 
-Now, this is just a simulation we are doing, so to get the mapping for a real Petri dish, we can use the dimentions of the gate in a Petri dish. 
-In \cite{gorecki2003chemical}, the exact dimensions in mm of the collision detector, signal channel of 10cm, and a membrane filter of 2.5cm inside of the Petri dish are specified. These dimensions can be used to map it to the one in our simulation.
+Now, this is just a simulation we are doing, so to get the mapping for a real petri dish, we can use the dimentions of the gate in a petri dish. 
+In \cite{gorecki2003chemical}, the exact dimensions in mm of the collision detector, signal channel of 10cm, and a membrane filter of 2.5cm inside of the petri dish are specified. These dimensions can be used to map it to the one in our simulation.
 
 
 Given the following mapping from real life measurements to simulation pixels:
@@ -148,11 +148,14 @@ For a dimension of \(10 \text{ mm} \times 4.4 \text{ mm}\), the conversion would
 Thus, a real-life size of \(10 \text{ mm} \times 4.4 \text{ mm}\) would map to a size of \(50 \text{ px} \times 22 \text{ px}\) in the simulation.
 More importantly, the simulation uses details as small as $1\text{px}^2$, which would amount to $\frac{1}{5}\text{mm}^2$ in real life, which would be infeasible because details smaller than $1\text{mm}^2$ are difficult to control accurately.
 This means we would need to scale the simulation up in order to have details easier to control. 
-However, as we scale it up, the surface area of the Petri dish becomes larger and the angle of incidence of the light becomes more significant, which is a problem we will explore later on in section \ref{sec:light-imperfections}.
-The reason there is a section before that is because \todo{help}
+However, as we scale it up, the surface area of the petri dish becomes larger and the angle of incidence of the light becomes more significant, which is a problem we will explore later on in section \ref{sec:light-imperfections}.
+There is no reason why the section that follows is unrelated as they do not depend on each other and 
+so Section \ref{sec:finding-phi-min-max} and \ref{sec:light-imperfections} can be read in any order.
+Section \ref{sec:computer-size-limitations} depends on both \ref{sec:finding-phi-min-max} and \ref{sec:light-imperfections} and so should be read last.
 
 
 \section{Finding $\phi_{\text{min}}$ and $\phi_{\text{max}}$ for a Chemical Diode} \label{sec:finding-phi-min-max}
+Goal 2 in Section \ref{sec:goals-lit-review} is to find the operational boundaries of the chemical components in a petri dish environment.
 As mentioned in equation \ref{eq:u-partial-t}, $\phi$ is external illumination that creates the chemical circuit. It sets the value of $\phi$ to either $\phi_{\text{active}}$ or $\phi_{\text{passive}}$. 
 $\phi$ values control the lighting conditions of the chemical circuit.
 Active regions are where it is dark/unilluminated and passive regions are where there is light/illlumination.
@@ -260,7 +263,7 @@ The reason the circuit has a higher tolerance to less light, compared to more li
 which is specifically made to stop the propagation of waves. 
 The diode also has a high tolerance to $\phi_{\text{passive}}$ increasing due to an additional spike added to the diode, which helps weaves to cross the gap easier, even when there is more light. The reason for $\phi_{\text{max}} < \phi_{\text{end}}$, meaning the diode was still letting the wave through left to right and not right to left at $\phi_{end}$, but it was not at other angles when tested, so the experiment measured propagation time, but the diode was only partially functional at these values
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{Screenshot 2024-03-09 at 10.35.01.png}
     \caption{Propagation times for various $\phi_{\text{passive}}$ values within the limits of $\phi_{\text{min}}$ and $\phi_{\text{max}}$, 
@@ -273,7 +276,7 @@ The diode also has a high tolerance to $\phi_{\text{passive}}$ increasing due to
     
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{Screenshot 2024-03-10 at 07.50.59.png}
     \caption{Propagation times around the value of $\phi_{\text{max}}$. The range of $\phi$ is $\phi_{\text{max}} - 7 \times 10^{-6} \leq \phi \leq \phi_{\text{max}} + 3 \times 10^{-6}$}
@@ -325,17 +328,16 @@ The diode also has a high tolerance to $\phi_{\text{passive}}$ increasing due to
 % \section{Calculating Possible Movement of the Light Source}
 \section{Estimating The Light Source's Position}\label{sec:light-imperfections}
 
-
+Continuing the investigation for goal 2 of Section \ref{sec:goals-lit-review}, the next step is to explore the imperfections of the light source in the simulation.
 
 Identifying the minimal operational conditions for the AND gate in real life involves examining light intensity, angle of incidence, and the effect of the thickness of the beam of light on the BZ reaction.
 
+Some chemical reactions can be influenced by temperature more, such as \cite{yamada2022artificial}, which uses a more complex model of the oregonator.
 
-Some circuits \todo{is it the same reaction} can be influenced by temperature, such as \cite{yamada2022artificial}, which uses a more complex model of the oregonator.  .
 
-
-Shining light on the BZ surface: \citep{barry1979methods}
+\citep{barry1979methods} explores the process of shining light on the BZ surface.
 The catalyst in these reactions is light, using light we can modulate the speed using $\Phi$.
-A light bulb is shined over the Petri dish (fig. \ref{fig:light-over-petri})
+The setup includes a light bulb that is shined over the petri dish (Fig. \ref{fig:light-over-petri})
 
 Given multiple light sources, the total illumination $I_{\text{total}}$ at a point on a surface is the sum of the illuminations from each individual light source (fig. \ref{fig:light-flux-petri-dish}). The illumination $I_i$ from a single source at a given point is given by the inverse square law, adjusted for the angle of incidence $\theta_i$:
 
@@ -359,16 +361,16 @@ where $P_i$ is the power of the $i$-th light source, $r_i$ is the distance from 
     \begin{subfigure}{.5\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sphere.jpg}
-        \caption{Light flux at different parts of a Petri dish}
+        \caption{Light flux at different parts of a petri dish}
         \label{fig:light-flux-petri-dish}
     \end{subfigure}
-    \caption{Visualization of light interaction with a Petri dish \citep{edwards_1970}.}
+    \caption{Visualization of light interaction with a petri dish \citep{edwards_1970}.}
 \end{figure}
 This means that now we can use that in the simulation to simulate the imperfections of light sources. 
 
-Most uses a single light bulb to illuminate the Petri dish as the Petri dish is small. 
+Most uses a single light bulb to illuminate the petri dish as the petri dish is small. 
 
-It is very important to calculate how far away the light source is from the Petri dish in order to make useful light calculations later on. This is because if the light source is very far away, the angle of incidence $\theta$ is very close to $90^\circ$, so the effect of the angle is insignificant.
+It is very important to calculate how far away the light source is from the petri dish in order to make useful light calculations later on. This is because if the light source is very far away, the angle of incidence $\theta$ is very close to $90^\circ$, so the effect of the angle is insignificant.
 
 In real experiments, the chemical reaction that occurs on the gel surface is sensitive to light due to the specific catalyst used (Ru(bpy)$_3$SO$_4$). 
 However, to observe and record the process, they need to use light to illuminate the gel, so that the camera can capture images. The experiment design, including time-varying intervals of different light intensities, allows them to balance between controlling the reaction and capturing the activity on the gel. \cite{TOTH20091605}
@@ -388,9 +390,9 @@ The book goes into more detail helpful for understanding the real-life environme
 One interesting observation is that the observation angle seems to change where we see the wave, which might be relevant for measuring the size of the waves, however this is not explored in this project.
 
 \begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Assumption]
-Unfortunately, \cite{gorecki2003chemical} do not specify how far away the light bulb projector is, which is used to illuminate the Petri dish, but we can assume the projector is far away, such that the angle of light projection is very close to $90^\circ$, making the effect of the angle insignificant. 
+Unfortunately, \cite{gorecki2003chemical} do not specify how far away the light bulb projector is, which is used to illuminate the petri dish, but we can assume the projector is far away, such that the angle of light projection is very close to $90^\circ$, making the effect of the angle insignificant. 
 \end{tcolorbox}
-We can still simulate that in our simulation to see what effect it would have if it were close to the medium; for larger circuits, this effect would be visible. Given a normal setup, what would be the maximum size of the Petri dish in a simulation before the effects of the light angle start to impact the simulation.
+We can still simulate that in our simulation to see what effect it would have if it were close to the medium; for larger circuits, this effect would be visible. Given a normal setup, what would be the maximum size of the petri dish in a simulation before the effects of the light angle start to impact the simulation.
 
 
 
@@ -404,7 +406,7 @@ From the provided information in the paper and the datasheet for the JCD100V-300
 
 \begin{itemize}
     \item Luminous flux ($\Phi$) as specified in the datasheet = 6600\, $\text{lm}$ \citep{fujilamp2024jdc}
-    \item Light intensity (I) at the Petri dish = 24,000\, $\text{lux}$
+    \item Light intensity (I) at the petri dish = 24,000\, $\text{lux}$
 \end{itemize}
 
 Originally, we calculated the luminous flux using the estimated luminous efficacy of 17 $\frac{\text{lm}}{\text{W}}$ and the power of the bulb (P) as 300 W, which gave us:
@@ -429,7 +431,7 @@ r = \sqrt{\frac{6600\, \text{lm}}{4\pi \times 24,000\, \text{lux}}}
 r \approx 0.148\, \text{metres}
 \]
 
-Thus, the corrected distance from the light source to the Petri dish, using the accurate luminous flux from the datasheet, is approximately 0.148 metres or 14.8 centimetres. This distance is crucial, as it suggests that the light intensity measurement of 24 kLux is likely taken close to the Petri dish where the biological samples are studied, rather than at an arbitrary point close to the light source.
+Thus, the corrected distance from the light source to the petri dish, using the accurate luminous flux from the datasheet, is approximately 0.148 metres or 14.8 centimetres. This distance is crucial, as it suggests that the light intensity measurement of 24 kLux is likely taken close to the petri dish where the biological samples are studied, rather than at an arbitrary point close to the light source.
 
 \begin{figure}
     \centering
@@ -454,16 +456,18 @@ For distances of 10 cm, 12 cm, 18 cm, and 20 cm, the illuminance values calculat
 
 These values illustrate a significant change in illumination as the radius increases, indicating that the radius is a crucial factor in determining the intensity of light received at a point.
 
-Concluding from these calculations, it is likely that the measurement of 24 kLux was made relatively close to the Petri dish. This is because the light intensity of 24 kLux is a practical measure for the conditions under which biological samples are typically studied. Measuring illuminance right next to the light source would yield an impractically high value, which is not as useful for experimental purposes. Hence, the measurement taken is more likely to be representative of the actual working conditions near the Petri dish.
+Concluding from these calculations, it is likely that the measurement of 24 kLux was made relatively close to the petri dish. This is because the light intensity of 24 kLux is a practical measure for the conditions under which biological samples are typically studied. Measuring illuminance right next to the light source would yield an impractically high value, which is not as useful for experimental purposes. Hence, the measurement taken is more likely to be representative of the actual working conditions near the petri dish.
 
 
 \section{Estimating The Maximum Petri Dish Size for a Chemical Diode \citep{gorecki2003chemical}} \label{sec:computer-size-limitations}
+Section \ref{sec:goals-lit-review} does not specify a goal for this section, but the previous findings allow for the exploration of a maximum chemical computer size. 
 
-
-Next thing is to add the imperfection in the simulation with only an AND gate. To do that, I need to come up with a formula about plugging in a pixel and getting out the illumincation percentage. 
+To do that, we can use an AND gate to represent a very very simple chemical computer and add imperfections in the simulation with only that AND gate. To do that, we need to come up with a formula about plugging in a pixel and getting out the illumincation percentage. 
 The percentage is basically the $\cos\theta$ as it is 0 when the angle is $90^\circ$.
-let's assume a parallel light source is max intensity and an angle of 0 is no intensity at all, so in the formula we would plug in $\phi=0.054$ for when it's active and $\phi=0.0975$ when it's passive. Active means no light, passive means a lot of light, so when the light source becomes weak at a point, that would mean thath $\phi$ becomes more active. 
-let's come up with a formula in mm that tells us when we move 1mm from the center of the petri dish where the light is most intense, what angle is that. That should be pretty simple, we have a right triangle, 
+\begin{tcolorbox}[colback=red!5!white,colframe=blue!75!black,title=Assumption: Light Intensity and Angle Relationship]
+We assume a parallel light source where maximum intensity corresponds to an angle of incidence of $0^\circ$, and no intensity is observed at an angle of $90^\circ$. In this context, for the active state (representing no light), we assign $\phi=0.054$, and for the passive state (indicating the presence of light), we assign $\phi=0.0975$. Thus, a decrease in light intensity at a point implies an increase in the active state value of $\phi$.
+\end{tcolorbox}
+The goal is to find a formula in mm that tells us when we move 1mm from the center of the petri dish where the light is most intense, what angle is that. That should be pretty simple, we have a right triangle, 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{geogebra-export (1).png}
@@ -473,11 +477,11 @@ let's come up with a formula in mm that tells us when we move 1mm from the cente
 
 We have to find the angle every time when we move \( x \) mm from the center of the petri dish.
 
-To calculate the angle \( \theta \) for any given radial distance \( r_c \) from the center of the Petri dish, we convert the pixel distance \( p \) to millimeters using the scaling factor \( s \) (in px/mm):
+To calculate the angle \( \theta \) for any given radial distance \( r_c \) from the center of the petri dish, we convert the pixel distance \( p \) to millimeters using the scaling factor \( s \) (in px/mm):
 
 \[ r_c = p \times s \]
 
-The angle \( \theta \) is then found using the arctangent function with respect to the height \( h \) of the light source above the center of the Petri dish:
+The angle \( \theta \) is then found using the arctangent function with respect to the height \( h \) of the light source above the center of the petri dish:
 
 \[ \theta = \arctan\left(\frac{r_c}{h}\right) \]
 
@@ -489,13 +493,13 @@ Since \( \cos(\arctan(x)) \) simplifies, we can express \( I_p \) directly as:
 
 \[ I_p = \frac{1}{\sqrt{1 + \left(\frac{r_c}{h}\right)^2}} \]
 
-The real-world distribution of light as we get further away from the center of the Petri dish is illustrated in Figure~\ref{fig:illumination-percentage}.
+The real-world distribution of light as we get further away from the center of the petri dish is illustrated in Figure~\ref{fig:illumination-percentage}.
 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{images/831353b8-f4b4-4a93-9c41-ba3d6b6f5811.jpg}
-    \caption{The graph represents the percentage of illumination $I_p$ as a function of the radial distance $r_c$ from the center of the Petri dish. The illumination percentage is calculated using the equation:$I_p = \frac{1}{\sqrt{1 + \left(\frac{r_c}{h}\right)^2}}$
-    where \( r_c \) is the radial distance from the center of the Petri dish in millimeters, and \( h \) is the height of the light source above the center of the Petri dish, which is 148 mm. The graph extends from \( r_c = -1000 \) mm to \( r_c = 1000 \) mm to illustrate the symmetrical decrease in illumination intensity on both sides of the center point.}
+    \caption{The graph represents the percentage of illumination $I_p$ as a function of the radial distance $r_c$ from the center of the petri dish. The illumination percentage is calculated using the equation:$I_p = \frac{1}{\sqrt{1 + \left(\frac{r_c}{h}\right)^2}}$
+    where \( r_c \) is the radial distance from the center of the petri dish in millimeters, and \( h \) is the height of the light source above the center of the petri dish, which is 148 mm. The graph extends from \( r_c = -1000 \) mm to \( r_c = 1000 \) mm to illustrate the symmetrical decrease in illumination intensity on both sides of the center point.}
     \label{fig:illumination-percentage}
 \end{figure}
 
@@ -513,9 +517,9 @@ The real-world distribution of light as we get further away from the center of t
     This formula effectively captures the transition of illumination across the operational range without delving into the complexities of the inverse square law and its derivatives. It succinctly demonstrates how illumination affects the diode's state by positioning any intermediate intensity level within a comprehensible operational range. Such an approach not only simplifies the mathematical analysis but also enhances our intuitive understanding of the system's behavior under varying light conditions.
 \end{tcolorbox}
 \begin{tcolorbox}[colback=red!5!white,colframe=blue!75!black,title=Assumptions for Light Intensity Calculation,label={ass:assumptions-light-intensity-calculation}]
-    There are assumptions to make when calculating the movable area of the Petri dish in centimeters.
+    There are assumptions to make when calculating the movable area of the petri dish in centimeters.
 \begin{itemize}
-    \item The area of the Petri dish for a chemical diode is the same as the one for the coincidence detector = 10mm
+    \item The area of the petri dish for a chemical diode is the same as the one for the coincidence detector = 10mm
     \item The limits ($\phi_{\text{min}}$ and $\phi_{\text{max}}$) are the same for both the coincidence detector and the chemical diode, in reality the coincidence detector has tighter constraints because it's made of diodes and a detector.
     \item We assume the light bulb is not using soft light, i.e. it has no piece of paper, so the inverse square law accurately describes the light intensity at different distances from the light source. 
 \end{itemize}
@@ -540,7 +544,7 @@ The process involves:
     \[\phi(I_p(r_c, h)) - \phi_{\text{min}} = 0\]
 
     \item Visualizing the relationship between \(r_c\) and \(\phi\), and annotating the plot to highlight the "movable area" and the point where \(\phi = \phi_{\text{min}}\).
-    \item Calculating the maximum circuit size based on the movable area of the Petri dish, where the movable area is 
+    \item Calculating the maximum circuit size based on the movable area of the petri dish, where the movable area is 
     the area where the diode limitations are still complied to.
 \end{enumerate}
 
@@ -549,20 +553,20 @@ This process determines the radial distance at which a specific illumination int
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{images/Screenshot 2024-03-22 at 09.42.18.png}
-    \caption{The graph illustrates the illumination intensity (\( \phi \)) as a function of radial distance from the center of a Petri dish, represented by an oval at the bottom center. The shaded area within \(\pm 10\,mm\) indicates the physical size of the Petri dish. A movable area of approximately 40.87 mm from the edge of the Petri dish to the radial distance corresponding to \( \phi_{\min} \) is highlighted, demonstrating the operational range within which the chemical diode effectively inhibits the reaction. Beyond this range, the diode becomes non-operational, allowing the reaction to proceed unimpeded.}
+    \caption{The graph illustrates the illumination intensity (\( \phi \)) as a function of radial distance from the center of a petri dish, represented by an oval at the bottom center. The shaded area within \(\pm 10\,mm\) indicates the physical size of the petri dish. A movable area of approximately 40.87 mm from the edge of the petri dish to the radial distance corresponding to \( \phi_{\min} \) is highlighted, demonstrating the operational range within which the chemical diode effectively inhibits the reaction. Beyond this range, the diode becomes non-operational, allowing the reaction to proceed unimpeded.}
     \label{fig:petri-dish-illumination}
 \end{figure}
 
 In this analysis, \( \phi_{\text{passive}} \) is defined as the maximum illumination intensity under which the Belousov-Zhabotinsky (BZ) reaction-based chemical diode remains in a passive state, effectively inhibiting the chemical reaction from propagating. The diode operates within this passive state until the illumination intensity decreases to a critical threshold, \( \phi_{\min} = 0.09555 \). Below this threshold, the diode becomes non-operational and ceases to inhibit the reaction, allowing it to propagate freely. The state of no light, denoted as \( \phi_{\text{active}} \), represents an ideal condition that is not physically achieved in this setup but is simulated using a filter to create the circuit pattern. \( \phi_{\min} \) was chosen based on experimental configurations and literature by Gorecki et al., signifying the operational limit for the diode's passive behavior. This analysis emphasizes the transition from \( \phi_{\text{passive}} \) to a non-operational state as light intensity falls below \( \phi_{\min} \), underscoring the critical operational range for the chemical diode's function in the BZ reaction.
 
-Given the results shown in graph \ref{fig:petri-dish-illumination}, the maximum size of the Petri dish for a chemical diode is approximately 
-Given the Petri dish size of 10 mm and extending 35.87 mm in both directions, the maximum chemical circuit size, considering the limitations of \( \phi_{\text{min}} \) and \( \phi_{\text{max}} \), can be calculated as:
+Given the results shown in graph \ref{fig:petri-dish-illumination}, the maximum size of the petri dish for a chemical diode is approximately 
+Given the petri dish size of 10 mm and extending 35.87 mm in both directions, the maximum chemical circuit size, considering the limitations of \( \phi_{\text{min}} \) and \( \phi_{\text{max}} \), can be calculated as:
 
 \[ \text{Maximum Circuit Size} = 10\,mm + 40.87\,mm + 40.87\,mm = 91.74\,mm \]
 
 
 \section{Light Impact on a CMM Neural Network \citep{stovold2017reaction}} \label{sec:light-impact-cmm-neuron}
-
+Another section not in the goals mentioned in Section \ref{sec:goals-lit-review}, but it is a natural continuation of the previous section.
 A CMM neuron is an example of a larger chemical circuit. It is going to serve as an example project for applying the limits found in the previous section.
 First we need to find the size of the curcuit in pixels as reported by \cite{stovold2017reaction}. In the paper the 
 size of the whole computer is reported as \textbf{1998x646px} and uses the exact same configuration as covered in Table \ref{tab:simulation-parameters} in Chapter \ref{ch:design-implementation}.
@@ -581,14 +585,14 @@ The width and height in real life can be calculated as follows:
     
 Therefore, the real-life dimensions of the circuit are $399.6 \, \text{mm} \times 129.2 \, \text{mm}$, which corresponds to the minimum size of a petri dish that can accommodate the CMM Neural Network.
 
-Given that the maximum size of the Petri dish for the assumptions in \ref{ass:assumptions-light-intensity} and \ref{ass:assumptions-light-intensity-calculation} is 91.74mm, the CMM Neural Network is too big to 
+Given that the maximum size of the petri dish for the assumptions in \ref{ass:assumptions-light-intensity} and \ref{ass:assumptions-light-intensity-calculation} is 91.74mm, the CMM Neural Network is too big to 
 have its diode ciruits operate within the operational range of the chemical diode. 
 The limits established are minimal limits/soft limits, meaning that the chemical computer in \cite{stovold2017reaction} uses much more than diodes and 
 likely has tighter constraints, so if it cannot work under even the minimal limits, it is not going to work under the tighter constraints. 
     
 
 \section{Light Impact on a single CMM Neuron \citep{stovold2017reaction}} \label{sec:light-impact-cmm-neuron-single}
-
+This section is actually in the goals in Section \ref{sec:goals-lit-review} as goal (3).
 We established that the big chemical computer in \cite{stovold2017reaction} is not possible under the conditions and assumptions established in the previous sections.
 However, will a single neuron be possible? 
 The size of a single CMM neuron from the paper is not specified, but there is only a design that mentions $200 \times 145$ pixels, however it is 
@@ -629,4 +633,3 @@ Manual tests with different $\phi_{\text{passive}}$ values have revealed that th
 This is likely due to the AND gate operating under tighter constraints and the compactness of the neuron. 
 
 In conclusion it is unclear if the neuron cell can be recreated in the real environment and more investigation is needed.
-
