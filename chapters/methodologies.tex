@@ -1,4 +1,4 @@
-\chapter{Design \& Implementation}
+\chapter{Design \& Implementation}\label{ch:design-implementation}
 The project experimented with Flutter for the initial simulation due to the benefits of pixel-level control and fast prototyping (see Figure \ref{fig:first-waves} for a preview of the first successful waves). However, the rendering was too slow for large chemical circuits, so the GPU was needed, for which, as of March 2024 Flutter still has no official support. A custom version of the newest engine was tested to expose experimental GPU APIs as detailed in \href{flutter.dev/go/impeller-dart}{flutter.dev/go/impeller-dart}.
 That did not work, so the Metal library was used to compute the simulation on the GPU. 
 The Metal library is a low-level, high-performance API for the GPU, and it was chosen for its ability to run on Apple devices, which are widely used in the scientific community, the execution graph for the simulation is illustrated in Figure \ref{fig:metal-dependency-pipline}.

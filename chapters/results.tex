@@ -1,4 +1,4 @@
-\chapter{Results}
+\chapter{Results} \label{ch:results}
 This chapter aims to explore the operational boundaries of the chemical components in a Petri dish environment, focusing on the size limitations of the coincidence detector and the light sensitivity of a chemical diode.
 A coincidence detector is crucial in the design of chemical circuits because it allows for an implementation of AND gates,
 which are important for computing. This detector is illustrated in Figure \ref{fig:and-gate} and it works by having two waves come together from left and right and if they meet, they form a new wave that passes through the detector at the bottom.
@@ -64,7 +64,7 @@ Thus, a real-life size of \(10 \text{ mm} \times 4.4 \text{ mm}\) would map to a
 More importantly, the simulation uses details as small as $1\text{px}^2$, which would amount to $\frac{1}{5}\text{mm}^2$ in real life, which would be infeasible because details smaller than $1\text{mm}^2$ are difficult to control accurately.
 This means we would need to scale the simulation up in order to have details easier to control. 
 However, as we scale it up, the surface area of the Petri dish becomes larger and the angle of incidence of the light becomes more significant, which is a problem we will explore later on in section \ref{sec:light-imperfections}.
-The reason there is a section before that is because 
+The reason there is a section before that is because \todo{help}
 
 
 \section{Finding $\phi_{\text{min}}$ and $\phi_{\text{max}}$ for a Chemical Diode} \label{sec:finding-phi-min-max}
@@ -416,7 +416,7 @@ The real-world distribution of light as we get further away from the center of t
 
 
 
-\begin{tcolorbox}[colback=red!5!white,colframe=blue!75!black,title=Assumptions for mapping light intensity to radial distance]
+\begin{tcolorbox}[colback=red!5!white,colframe=blue!75!black,title=Assumptions for mapping light intensity to radial distance,label={ass:assumptions-light-intensity}]
     In our analysis, rather than directly calculating the rate of change of distance with respect to illumination intensity (\(\frac{dl}{d\phi}\)), we employ an interpolation strategy to estimate the illumination percentage between \(\phi_{\text{active}}\) and \(\phi_{\text{passive}}\). This approach is particularly advantageous because it allows us to model the transition of the chemical diode's state from passive to active (and vice versa) without necessitating a precise mathematical mapping of the inverse square law in this context. 
 
     Interpolation is mathematically straightforward and significantly practical for our purposes. By defining \(\phi_{\text{active}} = 0\,\text{lux}\), representing the absence of light, and \(\phi_{\text{passive}} = 24,000\,\text{lux}\), as the maximum light intensity for the diode to remain passive, we create a linear scale between these two points. Thus, any given illumination intensity, \(\phi\), can be represented as a percentage along this scale:
@@ -427,7 +427,7 @@ The real-world distribution of light as we get further away from the center of t
     
     This formula effectively captures the transition of illumination across the operational range without delving into the complexities of the inverse square law and its derivatives. It succinctly demonstrates how illumination affects the diode's state by positioning any intermediate intensity level within a comprehensible operational range. Such an approach not only simplifies the mathematical analysis but also enhances our intuitive understanding of the system's behavior under varying light conditions.
 \end{tcolorbox}
-\begin{tcolorbox}[colback=red!5!white,colframe=blue!75!black,title=Assumptions for Light Intensity Calculation]
+\begin{tcolorbox}[colback=red!5!white,colframe=blue!75!black,title=Assumptions for Light Intensity Calculation,label={ass:assumptions-light-intensity-calculation}]
     There are assumptions to make when calculating the movable area of the Petri dish in centimeters.
 \begin{itemize}
     \item The area of the Petri dish for a chemical diode is the same as the one for the coincidence detector = 10mm
@@ -436,53 +436,112 @@ The real-world distribution of light as we get further away from the center of t
 \end{itemize}
 \end{tcolorbox}
 
+Calculating the maximum size of the petri dish involves finding the radial distance at which the illumination intensity reaches a specific threshold (\(\phi_{\text{min}}\)) under given conditions. 
+This is shown in Figure \ref{fig:petri-dish-illumination}.
+\begin{itemize}
+    \item \( \phi_{\text{active}} \) and \( \phi_{\text{passive}} \) as the active and passive states of illumination intensity.
+    \item \( \phi_{\text{min}} \) as the target illumination intensity.
+    \item \( h \) as the height or a relevant physical dimension.
+\end{itemize}
+The process involves:
+\begin{enumerate}
+    \item Calculating the intensity percentage, \(I_p\), as a function of radial distance, \(r_c\), and height, \(h\):
+    \[I_p(r_c, h) = \frac{1}{\sqrt{1 + \left(\frac{r_c}{h}\right)^2}}\]
+
+    \item Interpolating the illumination intensity, \(\phi\), between \(\phi_{\text{active}}\) and \(\phi_{\text{passive}}\) based on \(I_p\):
+    \[\phi(I_p) = \phi_{\text{active}} + (\phi_{\text{passive}} - \phi_{\text{active}}) \cdot I_p\]
+
+    \item Finding the radial distance, \(r_c\), where \(\phi = \phi_{\text{min}}\), by solving for \(r_c\) in:
+    \[\phi(I_p(r_c, h)) - \phi_{\text{min}} = 0\]
+
+    \item Visualizing the relationship between \(r_c\) and \(\phi\), and annotating the plot to highlight the "movable area" and the point where \(\phi = \phi_{\text{min}}\).
+    \item Calculating the maximum circuit size based on the movable area of the Petri dish, where the movable area is 
+    the area where the diode limitations are still complied to.
+\end{enumerate}
+
+This process determines the radial distance at which a specific illumination intensity (\(\phi_{\text{min}}\)) is achieved, under given conditions.
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{images/Screenshot 2024-03-10 at 23.57.42.png}
-    \caption{The graph illustrates the illumination intensity (\( \phi \)) as a function of radial distance from the center of a Petri dish, represented by an oval at the bottom center. The shaded area within \(\pm 10\,mm\) indicates the physical size of the Petri dish. A movable area of approximately 35.87 mm from the edge of the Petri dish to the radial distance corresponding to \( \phi_{\min} \) is highlighted, demonstrating the operational range within which the chemical diode effectively inhibits the reaction. Beyond this range, the diode becomes non-operational, allowing the reaction to proceed unimpeded.}
+    \includegraphics[width=\textwidth]{images/Screenshot 2024-03-22 at 09.42.18.png}
+    \caption{The graph illustrates the illumination intensity (\( \phi \)) as a function of radial distance from the center of a Petri dish, represented by an oval at the bottom center. The shaded area within \(\pm 10\,mm\) indicates the physical size of the Petri dish. A movable area of approximately 40.87 mm from the edge of the Petri dish to the radial distance corresponding to \( \phi_{\min} \) is highlighted, demonstrating the operational range within which the chemical diode effectively inhibits the reaction. Beyond this range, the diode becomes non-operational, allowing the reaction to proceed unimpeded.}
     \label{fig:petri-dish-illumination}
 \end{figure}
 
 In this analysis, \( \phi_{\text{passive}} \) is defined as the maximum illumination intensity under which the Belousov-Zhabotinsky (BZ) reaction-based chemical diode remains in a passive state, effectively inhibiting the chemical reaction from propagating. The diode operates within this passive state until the illumination intensity decreases to a critical threshold, \( \phi_{\min} = 0.09555 \). Below this threshold, the diode becomes non-operational and ceases to inhibit the reaction, allowing it to propagate freely. The state of no light, denoted as \( \phi_{\text{active}} \), represents an ideal condition that is not physically achieved in this setup but is simulated using a filter to create the circuit pattern. \( \phi_{\min} \) was chosen based on experimental configurations and literature by Gorecki et al., signifying the operational limit for the diode's passive behavior. This analysis emphasizes the transition from \( \phi_{\text{passive}} \) to a non-operational state as light intensity falls below \( \phi_{\min} \), underscoring the critical operational range for the chemical diode's function in the BZ reaction.
 
+Given the results shown in graph \ref{fig:petri-dish-illumination}, the maximum size of the Petri dish for a chemical diode is approximately 
+Given the Petri dish size of 10 mm and extending 35.87 mm in both directions, the maximum chemical circuit size, considering the limitations of \( \phi_{\text{min}} \) and \( \phi_{\text{max}} \), can be calculated as:
+
+\[ \text{Maximum Circuit Size} = 10\,mm + 40.87\,mm + 40.87\,mm = 91.74\,mm \]
 
 
-\section{Light Impact on a CMM Neuron \citep{stovold2017reaction}} \label{sec:light-impact-cmm-neuron}
-This formula calculates the percentage of illumination at a point \( r_c \) millimeters from the center, assuming the light intensity directly beneath the source is 100%.
-\todo{This here is related to the big circuit that James has, not the and gate or the diode}
+\section{Light Impact on a CMM Neural Network \citep{stovold2017reaction}} \label{sec:light-impact-cmm-neuron}
+
+A CMM neuron is an example of a larger chemical circuit. It is going to serve as an example project for applying the limits found in the previous section.
+First we need to find the size of the curcuit in pixels as reported by \cite{stovold2017reaction}. In the paper the 
+size of the whole computer is reported as \textbf{1998x646px} and uses the exact same configuration as covered in Table \ref{tab:simulation-parameters} in Chapter \ref{ch:design-implementation}.
+
+Using the mapping established in Section \ref{sec:mapping-simulation-to-real-life}, we can calculate the real-life size of the chemical computer.
 
 
-From manual tests with illumination, the circuits start behaving not as expected even with illumination percentages less than 0.99 because the simulation is very sensitive to changes in light intensity as it relies on a manifold of light-affected microinteraction. Using this value of 0.99, we can see at what size of the Petri dish do we start to see values below 0.99. We can calculate that and then confirm in the simulation. 
+Given the dimensions of the circuit in the simulation as $1998 \times 646$ pixels and the established scaling factor of $5 \, \text{px/mm}$, we can calculate the real-life dimensions of the circuit.  
+
+The width and height in real life can be calculated as follows:
+
+\begin{align*}
+    \text{Width in millimeters} &= \frac{\text{Width in pixels}}{\text{Scaling factor}} = \frac{1998 \, \text{px}}{5 \, \text{px/mm}} = 399.6 \, \text{mm}, \\
+    \text{Height in millimeters} &= \frac{\text{Height in pixels}}{\text{Scaling factor}} = \frac{646 \, \text{px}}{5 \, \text{px/mm}} = 129.2 \, \text{mm}.
+\end{align*}
+    
+Therefore, the real-life dimensions of the circuit are $399.6 \, \text{mm} \times 129.2 \, \text{mm}$, which corresponds to the minimum size of a petri dish that can accommodate the CMM Neural Network.
+
+Given that the maximum size of the Petri dish for the assumptions in \ref{ass:assumptions-light-intensity} and \ref{ass:assumptions-light-intensity-calculation} is 91.74mm, the CMM Neural Network is too big to 
+have its diode ciruits operate within the operational range of the chemical diode. 
+The limits established are minimal limits/soft limits, meaning that the chemical computer in \cite{stovold2017reaction} uses much more than diodes and 
+likely has tighter constraints, so if it cannot work under even the minimal limits, it is not going to work under the tighter constraints. 
+    
+
+\section{Light Impact on a single CMM Neuron \citep{stovold2017reaction}} \label{sec:light-impact-cmm-neuron-single}
+
+We established that the big chemical computer in \cite{stovold2017reaction} is not possible under the conditions and assumptions established in the previous sections.
+However, will a single neuron be possible? 
+The size of a single CMM neuron from the paper is not specified, but there is only a design that mentions $200 \times 145$ pixels, however it is 
+obvious from the images of the network that the neuron used is smaller and more compact than the designed one. This is why we are going to build a similar neuron
+and measure it, which is done in Figure \ref{fig:neuron-cell-built}.
+To calculate the size of the neuron as described by \cite{stovold2017reaction}, we begin by building a neuron cell 
+that has similar dimentions to the one in the original paper.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/circuit2-Recovered.png}
+    \caption{Image of a single neuron cell sized at 116x144px built and tested in our simulation, which will be used as a reference for scaling to the approximate size of a single neuron in \cite{stovold2017reaction}.}
+    \label{fig:neuron-cell-built}
+\end{figure}
 
 
-I debugged the nonworking thing with a debug variable inside the metal function controlled by my mouse. 
-I just verified that the simulation does break once the illumination reaches 0.99. I did not get much value from putting this inside the simulation, more like, oh yeah, I am correct.
-I could have verified that 0.99 is the threshold by just running 
-it.
+The width and height of the neuron in millimeters can be calculated as follows:
 
-I verify using a simulation that if the circuit is too big, a single light source might not be enough to illuminate the whole area relatively evenly and even light perturbations in the light are going to disrupt larger circuits. 
-What can be done is to make the circuit different the further away it is from the source, which would involve different dynamics that work under different lighting conditions. This is infeasible to do practically as it so highly depends on the light source. 
+\begin{align*}
+\text{Width in millimeters} &= \frac{\text{Width in pixels}}{\text{Scaling factor}} = \frac{116 \, \text{px}}{5 \, \text{px/mm}} = 23.2 \, \text{mm}, \\
+\text{Height in millimeters} &= \frac{\text{Height in pixels}}{\text{Scaling factor}} = \frac{144 \, \text{px}}{5 \, \text{px/mm}} = 28.8 \, \text{mm}.
+\end{align*}
 
-The 0.99 is kind of sus, I still need to figure out a lot of things like a more optimal mapping from the real-life illumination intensity and the mathematical formula in the Oregonator model. I think my mapping is okay because $\phi_{\text{active}}$ is what it is and $\phi_{\text{passive}}$ can be moved even further, I just interpolate between these values, maybe there is a better way to simulate it. The problem with my simulation is that it does not matter how strong the light source is, you can put the whole sun over the Petri dish, the illumination at the angle is still going to be 0.99 of the original, I need a better way to simulate it that can also input the parameters of the light source, so it's not just about the strength. I need something like a threshold for when the light intensity is so strong that nothing can pass through. That is also a problem, however, because the actual circuit relies on the gaps being not too illuminated, so that the activator chemical can diffuse towards another part of the surface. It's again difficult to come up with a model. 
-So that means a more powerful light bulb might create different things for different illuminations, but it might not work if the Petri dish is directly under it as it might create too much illumination and prevent the waves from crossing boundaries. \textit{I don't know}. So the 0.99 is only true when the assumption that $\phi_{\text{active}}$ is equivalent to the Hallogen light bulb of 300W used directly above it.
-
-Maybe, just maybe, the relationship is not linear as I assume, but logarithmic, so as the illlumination in real life decreases, that creates a logarithmic decrease in $\phi$ from $\phi_{\text{active}}$ to $\phi_{\text{passive}}$, so it might not be as sensitive to the small changes in light as I assume. \todo{To resolve this, how did the var values come about }
-
-In the simulation very small changes in light intensity were found to very significantly affect the propagation delay of the activator signal. This is crucial for the operation of the circuit. These circuits do not have any way of synchronisation other than propagation delay, which means even the slightest change in light intensity is going to affect the speed of propagation and the whole circuit would break. This is more important for bigger circuits like the ones built by \cite{StovoldJames2019RaGI}, that rely heavily on exact propagation. 
-In my simulation it was very sensitive to the illumination changes, maybe in real life as long as it's more illuminated than some \textit{threshold}, then it doesn't matter for the simulation. I need to do more digging to figure out what to do from here.
+Thus, the real-life dimensions of a single neuron, as adapted from the simulation, are $23.2 \, \text{mm} \times 28.8 \, \text{mm}$ and are well within the operational range for a chemical diode. 
+However, the assumptions here might not be adequate as the neuron in the paper is likely to have tighter constraints than the chemical diode because it also uses a coincidence detector (AND gate),
+a cross-junction with diodes that might have different constraints than a single diode due to its compact size and potentially other smaller details that might contribute to 
+shrinking constraints. This is covered in Section \ref{sec:other-components}.
 
 
 
+Also, even if the neuron cell might work under some conditions, that does not mean that it would function correctly as a whole computer because 
+the change in illumination affects propagation times \citep{reddy1995effect} as seen in Section \ref{sec:light-imperfections}.
+Chemical computers have no clock signal and rely heavily on correct signal arrival, so larger circuits like \cite{StovoldJames2019RaGI} 
+might be heavily affected as they rely on propagation to ensure proper arrival of information.
 
+\subsection{Testing the Custom CMM Neuron with different values of $I_p$}\label{sec:testing-neuron}
+Manual tests with different $\phi_{\text{passive}}$ values have revealed that the neuron cell is operational at \( I_p \geq 0.99 \), which means the constraints for the operation are indeed very tight.
+This is likely due to the AND gate operating under tighter constraints and the compactness of the neuron. 
 
-
-Ok, I need to understand how illumination maps to $\phi$. For that I need to understand the Oregonator model
-
-
-that's it, we need to find the minimum and maximum reaction rates in real life reactions. 
-we already have a minimum and maximum in the simulation ,we can check if they behave the same way. if they do, that's our threasholds, then we need to find an appropriate function that describes a similar relationship and we found it
-
-
-The main idea is that when there is no activator in the solution,  \citep{reddy1995effect}
-
+In conclusion it is unclear if the neuron cell can be recreated in the real environment and more investigation is needed.
 

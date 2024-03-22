@@ -1,16 +1,44 @@
-\chapter{Future work}
-\section{Accounting for Light Loss Due to Reflection} \label{sec:reflection-refraction}
-ok let's make some assumptions, the OHP sheet they use to block off light, tell me more about it, is it transparent or not? how far away do they usually put it? it's fine to make assumptions because it's not in the paper, probably it's obvious. using that we woudl also assume waht it is made of, and taht would allow for us to calculate the intensity of the light after being blocked by the sheet, using that, we would mark that as phi passive. then i have what's phi active and what's phi passive. using that, I would assume a reasonable function like sigmoid because of some argument and then map, for the actual mapping, I would need to know where the sigmoid starts and ends based on more assumptions, like, the thing can't get more active (it's dark and stuf), but can get infinitely passive. if we put the sun 13cm away, then the waves would melt instantly upon going out of the activator, so we need to assume some realtionship
+\chapter{Conclusion \& Future work}
+The project successfully explored the impact of certain imperfections on the performance of chemical computers.
+The goals in Section \ref{sec:goals-lit-review} were mostly achieved and the results were discussed in Chapter \ref{ch:results}.
+The whole chemical computer in \cite{stovold2017reaction} was not fully recreated, but a single CMM neuron was and it was measured and discussed in Section \ref{sec:light-impact-cmm-neuron-single}.
+Light changes and their effect on chemical circuits have been explored to a degree in Sections \ref{sec:light-imperfections} and \ref{sec:computer-size-limitations}, with room 
+for more exploration in Section \ref{sec:reflection-refraction} and Section \ref{sec:absorption}.
+
+The results in Section \ref{sec:light-imperfections} and Section \ref{sec:computer-size-limitations} show that light imperfections like 
+angle of incidence, light source position, light intensity have a significant impact on the performance of chemical circuits.
+
+It was shown that it is very challenging to recreate chemical circuits in real life, as the light source needs to be very uniform and/or the circuit needs to be very small.
+
+\section{Alternative Light Sources}
+\cite{gorecki2003chemical} uses a halogen light bulb as a light source, which is fine for small circuits, but when the circuit grows to the size 
+of what \cite{stovold2017reaction} has built, the light source starts to not be enough to illuminate the whole circuit.
+One way to go around that is to use LED panels that make use of multiple small light sources and a diffuser to make the light more uniform across the whole circuit.
+That is likely to fully solve the problem of light imperfections and allow for the construction of larger circuits.
+
+\section{Future Work}
+
+\subsection{Accounting for Light Loss Due to Reflection} \label{sec:reflection-refraction}
+
+The basic idea is that the OHP sheet is not fully transparent, even though it is assumed to be in \cite{gorecki2003chemical}.
+As the petri dish grows in size, the angle of incidence where the light hits the OHP sheet decreases, leading to more light being reflected away.
+
+\cite{gorecki2003chemical} includes an opaque material positioned after the OHP sheet to obstruct light, suggesting the necessity of a controlled lighting environment, in order to observe the phenomena using a projector.
+\begin{tcolorbox}[colback=red!5!white,colframe=blue!75!black,title=Assumptions for Lighting Environment]
+The external environment in \cite{gorecki2003chemical} is not described thoroughly, but it is \textbf{assumed} to be dim or dark.
+More specifically, it is assumed to be dark enough that the projector light is the only significant light source in the experiment. 
+\end{tcolorbox}
+
+Another role the Overhead Projector (OHP) sheet plays is in the smoothness of the light that is produces after it passes through it due to 
+the diffusion of the light. That is something unaccounted for in the current simulation and it could affect the results of Section \ref{sec:computer-size-limitations}
+because if the light distributes, even though there is less of it, in \cite{gorecki2003chemical} the experiment still works with this diffused light, so 
+the computer could potentially scale to be slightly larger in size than established in the mentioned section.
 
 
-oh, so they use the sheet to smooth out the light, if that's the case then the light would be the same everywhere. how can we use osme physics and assumptions to calculate how that sheet impacts the light intensity directly after it.
-i can see they also put non-transparent material to block off the light after this OHP sheet. the material is opaque and they didn't specify how bright the room is, they also mention that they use a porjector and flash it to see what's happening, which means probably the room is dark
+To quantitatively model the OHP sheet's impact on light intensity, two primary phenomena are considered: the absorption by the sheet and the light's transmission governed by the angle of incidence. For absorption, the Beer-Lambert Law is applied, while transmission is analyzed through a simplified adaptation of the Fresnel equations.
 
-
-To model the impact of an Overhead Projector (OHP) sheet on light intensity, we consider two main effects: absorption within the material and transmission due to the angle of incidence. We employ the Beer-Lambert Law for absorption and a simplified version of the Fresnel equations for transmission.
-
-\subsection*{Fresnel Equations for Transmission}
-The Fresnel equations determine how much light is transmitted and reflected at an interface, depending on the angle of incidence. For non-polarized light and considering both s-polarized and p-polarized components, the average transmission \(T\) can be approximated by:
+\subsubsection*{Fresnel Equations for Transmission}
+The Fresnel equations \citep{eschede2017optics} determine how much light is transmitted and reflected at an interface, depending on the angle of incidence. For non-polarized light and considering both s-polarized and p-polarized components, the average transmission \(T\) can be approximated by:
 \[ T = \frac{T_s + T_p}{2} \]
 where \(T_s\) and \(T_p\) are the transmission coefficients for s-polarized and p-polarized light, respectively. These coefficients are calculated using the refractive indices of the air (\(n_1\)) and the OHP sheet material (\(n_2\)), and the angle of incidence \(\theta_i\).
 The Fresnel equations describe the reflection and transmission of light when it hits an interface between two different media. For s-polarized light (electric field perpendicular to the plane of incidence) and p-polarized light (electric field parallel to the plane of incidence), the transmission coefficients can be calculated as follows:
@@ -24,15 +52,32 @@ For p-polarized light:
 where:
 \begin{itemize}
     \item \( T_s \) and \( T_p \) are the transmission coefficients for s-polarized and p-polarized light, respectively.
-    \item \( n_1 \) is the refractive index of the first medium (air, typically close to 1).
+    \item \( n_1 \) is the refractive index of the first medium (air, usually close to 1).
     \item \( n_2 \) is the refractive index of the second medium (OHP sheet material).
     \item \( \theta_i \) is the angle of incidence.
 \end{itemize}
 
-The average transmission \( T \) for unpolarized light can be approximated as the average of \( T_s \) and \( T_p \):
+The average transmission \( T \) for unpolarized light can be calculated as the average of \( T_s \) and \( T_p \):
 \[ T = \frac{T_s + T_p}{2} \]
 
-\subsection*{Example Calculation at 45 Degrees Angle of Incidence}
+There might be no need to consider polarity as the light is unpolarized and it might be the case that \(T_s = T_p\), but it is still good to consider both 
+as there are separate formulas for the calculation of both.
+
+
+\subsection{Beer-Lambert Law for Absorption} \label{sec:absorption}
+The Beer-Lambert Law \citep{eschede2017optics} describes how the intensity of light decreases as it passes through an absorbing medium:
+\[ I = I_0 \cdot e^{-\alpha \cdot l} \]
+where:
+\begin{itemize}
+    \item \(I_0\) is the initial light intensity before hitting the OHP sheet.
+    \item \(I\) is the light intensity after passing through the material.
+    \item \(\alpha\) is the absorption coefficient of the OHP sheet material.
+    \item \(l\) is the thickness of the OHP sheet.
+\end{itemize}
+
+For our calculations, we assume an absorption coefficient \(\alpha = 1\ \text{m}^{-1}\) and a thickness \(l = 0.004\) meters (4 mm).
+
+\subsubsection*{Example Calculation at 45 Degrees Angle of Incidence}
 At an angle of incidence of 45 degrees, and assuming the refractive index for air as 1.0 and the OHP sheet material as 1.5, we calculate \( T_s \), \( T_p \), and the average transmission \( T \). The transmission coefficients reflect how much of the incident light is transmitted through the OHP sheet at this angle.
 
 Using these Fresnel equations, we account for the angle-dependent transmission of light through the OHP sheet, complementing the Beer-Lambert Law used to calculate the light intensity after absorption by the material.
@@ -49,24 +94,29 @@ This result indicates that the combined effect of slight absorption by the OHP s
 These calculations demonstrate the importance of considering both material properties and geometric factors, such as the angle of incidence, when modelling the transmission of light through materials in experimental setups.
 
 
-
-\todo{the diffusion assumes 100\% goes through at the centre of the  light source, it's more like 99\% or something}
-
-\section{Beer-Lambert Law for Absorption} \label{sec:absorption}
-\todo{Move to future work, looking at phi act and phi pass are related, atm we are varying passive, but activve would change as well, atm we are making the assumption no light is going through ,but could calculate their relationship using some fomrula for absorbtion like this }
-The Beer-Lambert Law describes how the intensity of light decreases as it passes through an absorbing medium:
-\[ I = I_0 \cdot e^{-\alpha \cdot l} \]
-where:
-\begin{itemize}
-    \item \(I_0\) is the initial light intensity before hitting the OHP sheet.
-    \item \(I\) is the light intensity after passing through the material.
-    \item \(\alpha\) is the absorption coefficient of the OHP sheet material.
-    \item \(l\) is the thickness of the OHP sheet.
-\end{itemize}
-
-For our calculations, we assume an absorption coefficient \(\alpha = 1\ \text{m}^{-1}\) and a thickness \(l = 0.004\) meters (4 mm).
-
-\section{Examining the Impact of Spike on Diode Robustness}
+\subsection{Examining the Impact of Spike on Diode Robustness}
 Section \ref{sec:propagation-time-variation} examines the how light variations impact the operation of a diode.
 However, this diode has a spike that helps it become more robust to these variations. It would be interesting how much 
 the range $\phi_{\text{min}}$ to $\phi_{\text{max}}$ would decrease by removing the spike from the diode.
+
+
+
+\subsection{Accounting for the Change on $\phi_{\text{active}}$}
+In order to simulate the environment becoming darker in Section \ref{sec:light-imperfections}, the value of $\phi_{\text{passive}}$ is decreased.
+It would be interesting to see if it is necessary to modify the value of $\phi_{\text{active}}$ as well using some relationship between
+$\phi_{\text{passive}}$ and $\phi_{\text{active}}$.
+It is also entirely possible that they are not related because $\phi_{\text{active}}$ represents a state of null illumination or total darkness that allows the reaction to happen, while $\phi_{\text{passive}}$ is a baseline illumination given by the light bulb 
+that is used to shine light onto the circuit. That is a constant value and would not change as we travel through the surface of the petri dish, while $\phi_{\text{passive}}$ changes 
+because it directly represents less light and starts approaching the value of $\phi_{\text{active}}$ as the light becomes dimmer and the reaction becomes more active.
+
+
+\subsection{Accounting for Other Chemical Component Limitations Than Diodes} \label{sec:other-components}
+Section \ref{sec:computer-size-limitations} only considers the limitations of the diodes in the chemical computer.
+Larger circuits like the ones used in \cite{stovold2017reaction} use multiple other elements like a coincidence detector (AND gate) and other details.
+It was established that the limits for a diode ($\phi_{\text{min}}$ and $\phi_{\text{max}}$) for the value of $\phi_{\text{passive}}$ are 0.106127
+and 0.106127, respectively. 
+Observations in Section \ref{sec:testing-neuron} show that the value of $I_p$ is around 0.99 in order to allow for the full neuron cell to operate normally.
+This would mean that the values would be a lot closer to $\phi_{\text{literature}}$, but the exact values are not calculated here. 
+In order for one to calculate them, they can use the mathematical formulas used in Section \ref{sec:finding-phi-min-max} and apply them to find the values of $\phi_{\text{min}}$ and $\phi_{\text{max}}$ for the CMM neuron
+by going 1\% in both directions.
+
