@@ -1,0 +1,141 @@
+
+!!! File chapters/background-lit-review.tex not found in path [./]. !!!
+File: report.tex
+Encoding: ascii
+Words in text: 0
+Words in headers: 5
+Words outside text (captions, etc.): 0
+Number of headers: 1
+Number of floats/tables/figures: 0
+Number of math inlines: 0
+Number of math displayed: 0
+
+Included file: ./chapters/introduction.tex
+Encoding: ascii
+Words in text: 801
+Words in headers: 50
+Words outside text (captions, etc.): 43
+Number of headers: 11
+Number of floats/tables/figures: 1
+Number of math inlines: 0
+Number of math displayed: 0
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  109+1+0 (1/0/0/0) Chapter: Introduction}\label{ch:introduction
+  60+2+43 (1/1/0/0) Section: Chemical Computer
+  98+2+0 (1/0/0/0) Section: Document Structure
+  81+1+0 (1/0/0/0) Section: Motivation
+  453+44+0 (7/0/0/0) Section: Scope of the Dissertation}\label{sec:goals
+
+Included file: ./chapters/background.tex
+Encoding: ascii
+Words in text: 1263
+Words in headers: 20
+Words outside text (captions, etc.): 31
+Number of headers: 8
+Number of floats/tables/figures: 2
+Number of math inlines: 24
+Number of math displayed: 2
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  23+3+0 (1/0/0/0) Chapter: Background \& Literature Review} \label{ch:background-lit-review
+  71+2+0 (1/0/0/0) Section: Reaction Diffusion
+  196+2+15 (1/1/1/0) Section: Belousov-Zhabotinsky Reaction
+  116+2+0 (1/0/0/0) Section: Chemical Computing
+  727+8+16 (2/1/23/2) Section: Oregonator Model
+  81+1+0 (1/0/0/0) Section: Motivation
+  49+2+0 (1/0/0/0) Section: Goals \& Objectives} \label{sec:goals-lit-review
+
+Included file: ./chapters/methodologies.tex
+Encoding: ascii
+Words in text: 377
+Words in headers: 2
+Words outside text (captions, etc.): 86
+Number of headers: 1
+Number of floats/tables/figures: 2
+Number of math inlines: 0
+Number of math displayed: 0
+
+Included file: ./chapters/results.tex
+Encoding: ascii
+Words in text: 5407
+Words in headers: 78
+Words outside text (captions, etc.): 513
+Number of headers: 17
+Number of floats/tables/figures: 16
+Number of math inlines: 191
+Number of math displayed: 21
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  126+1+0 (1/0/0/0) Chapter: Results} \label{ch:results
+  778+10+21 (3/3/4/0) Section: Creating a Coincidence Detector In Simulation} \label{chap:creating-detector
+  560+7+10 (1/2/8/3) Section: Mapping the Simulation Size to Real Life} \label{sec:mapping-simulation-to-real-life
+  1222+22+237 (7/4/79/0) Section: Finding $\phi_{\text{min}}$ and $\phi_{\text{max}}$ for a Chemical Diode} \label{sec:finding-phi-min-max
+  1159+5+36 (1/3/28/7) Section: Estimating The Light Source's Position}\label{sec:light-imperfections
+  944+10+176 (1/3/64/9) Section: Estimating The Maximum Petri Dish Size for a Chemical Diode \citep{gorecki2003chemical}} \label{sec:computer-size-limitations
+  248+7+0 (1/0/3/1) Section: Light Impact on a CMM Neural Network \citep{stovold2017reaction}} \label{sec:light-impact-cmm-neuron
+  370+16+33 (2/1/5/1) Section: Light Impact on a single CMM Neuron \citep{stovold2017reaction}} \label{sec:light-impact-cmm-neuron-single
+
+Included file: ./chapters/future-work.tex
+Encoding: ascii
+Words in text: 1324
+Words in headers: 52
+Words outside text (captions, etc.): 0
+Number of headers: 10
+Number of floats/tables/figures: 0
+Number of math inlines: 44
+Number of math displayed: 7
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  173+3+0 (1/0/0/0) Chapter: Conclusion \& Future work
+  91+3+0 (1/0/0/0) Section: Alternative Light Sources
+  1060+46+0 (8/0/44/7) Section: Future Work
+
+Included file: ./chapters/appendix1.tex
+Encoding: ascii
+Words in text: 0
+Words in headers: 3
+Words outside text (captions, etc.): 0
+Number of headers: 1
+Number of floats/tables/figures: 0
+Number of math inlines: 0
+Number of math displayed: 0
+
+Included file: ./original_proposal/main.tex
+Encoding: ascii
+Words in text: 992
+Words in headers: 10
+Words outside text (captions, etc.): 18
+Number of headers: 6
+Number of floats/tables/figures: 3
+Number of math inlines: 0
+Number of math displayed: 0
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  497+4+10 (3/1/0/0) Section: Aims \& Objectives
+  88+2+6 (1/1/0/0) Section: Related work
+  260+1+0 (1/0/0/0) Section: Methodologies
+  147+3+2 (1/1/0/0) Section: Programme of Work
+
+Sum of files: report.tex
+File(s) total: report.tex
+Words in text: 10164
+Words in headers: 220
+Words outside text (captions, etc.): 691
+Number of headers: 55
+Number of floats/tables/figures: 24
+Number of math inlines: 259
+Number of math displayed: 30
+Files: 8
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  0+5+0 (1/0/0/0) File: report.tex
+  801+50+43 (11/1/0/0) Included file: ./chapters/introduction.tex
+  1263+20+31 (8/2/24/2) Included file: ./chapters/background.tex
+  377+2+86 (1/2/0/0) Included file: ./chapters/methodologies.tex
+  5407+78+513 (17/16/191/21) Included file: ./chapters/results.tex
+  1324+52+0 (10/0/44/7) Included file: ./chapters/future-work.tex
+  0+3+0 (1/0/0/0) Included file: ./chapters/appendix1.tex
+  992+10+18 (6/3/0/0) Included file: ./original_proposal/main.tex
+
+(errors:1)
